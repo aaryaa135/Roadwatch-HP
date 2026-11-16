@@ -1,0 +1,59 @@
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
+.pytest_cache/
+.mypy_cache/
+
+# Environment and secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Model weights
+*.pt
+*.pth
+*.onnx
+*.engine
+*.ckpt
+*.safetensors
+
+# Datasets
+*.h5
+*.hdf5
+*.zip
+*.npy
+*.npz
+*.tif
+*.tiff
+data/
+datasets/
+
+# Training outputs
+runs/
+wandb/
+mlruns/
+
+# Frontend
+node_modules/
+dist/
+build/
+coverage/
+
+# IDE
+.vscode/
+.idea/
+
+# Operating system
+.DS_Store
+Thumbs.db
+
+# Logs and temporary files
+*.log
+*.tmp
+*.bak
