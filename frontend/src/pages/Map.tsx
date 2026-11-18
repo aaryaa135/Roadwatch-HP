@@ -200,7 +200,7 @@ export function Map() {
             <div className="border border-gray-300 aspect-video relative">
               {loading ? (
                 <div className="absolute inset-0 flex items-center justify-center text-gray-500">
-                  Loading map&hellip;
+                  Loading map…
                 </div>
               ) : (
                 <MapContainer
@@ -226,7 +226,7 @@ export function Map() {
                       }}
                     >
                       <Popup>
-                        <div className="text-sm min-w-[200px]">
+                        <div className="text-sm min-w-[220px]">
                           <div className="font-semibold text-gray-900 mb-1">
                             {report.title}
                           </div>
@@ -234,19 +234,30 @@ export function Map() {
                             {report.district ?? "—"}
                           </div>
                           <div className="flex gap-2 mb-2">
-                            <span className="gov-badge">
+                            <span className="rw-badge">
                               {report.hazard_type.replace(/_/g, " ")}
                             </span>
-                            <span className="gov-badge">
+                            <span className="rw-badge">
                               {report.severity.charAt(0).toUpperCase() +
                                 report.severity.slice(1)}
                             </span>
-                            <span className="gov-badge">
+                            <span className="rw-badge">
                               {report.status.replace(/_/g, " ").toUpperCase()}
                             </span>
                           </div>
+                          <div className="mb-2">
+                            <p className="text-xs font-semibold text-gray-900 mb-1">
+                              Description
+                            </p>
+                            <p className="text-xs text-gray-700">
+                              {report.description ?? "No description provided."}
+                            </p>
+                          </div>
+                          <div className="text-xs text-gray-500 border-t border-gray-300 pt-1">
+                            {`Reported ${new Date(report.created_at).toLocaleDateString()}`}
+                          </div>
                           <button
-                            className="gov-btn text-sm w-full"
+                            className="mt-2 rw-btn text-sm w-full"
                             onClick={() => goto(report.latitude, report.longitude)}
                           >
                             Centre on this hazard
@@ -259,7 +270,7 @@ export function Map() {
                 </MapContainer>
               )}
               <button
-                className="absolute bottom-4 right-4 gov-btn text-sm"
+                className="absolute bottom-4 right-4 rw-btn text-sm"
                 onClick={resetView}
               >
                 Reset view

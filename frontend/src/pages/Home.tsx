@@ -1,229 +1,220 @@
 import { useState, useEffect } from "react";
 import { Link } from "../router";
 import { getReports } from "../api";
-import { MapContainer, TileLayer } from "react-leaflet";
-import "leaflet/dist/leaflet.css";
 import { StatusBadge } from "../components/badges";
 
-const HP_CENTER: [number, number] = [31.1048, 77.1734];
-
-interface Stat {
-  label: string;
-  value: string | null;
-  placeholder: boolean;
-}
-
-const MODULES = [
-  {
-    id: "road_damage",
-    title: "Road damage detection",
-    description: "Detects potholes, cracks and rutting from road surface photographs.",
-  },
+const HAZARD_CATEGORIES = [
   {
     id: "landslide",
-    title: "Landslide segmentation",
-    description: "Segments landslide-affected areas from 14-channel multispectral satellite imagery.",
+    label: "Landslide",
+    description: "Slippage of earth, rock or debris onto the road.",
+  },
+  {
+    id: "road_damage",
+    label: "Road damage",
+    description: "Potholes, cracks, rutting and surface breakup.",
   },
   {
     id: "rockfall_debris",
-    title: "Rockfall and debris detection",
-    description: "Detects rockfall and debris hazards on hill roads.",
+    label: "Rockfall and debris",
+    description: "Falling rocks or debris blocking the roadway.",
   },
   {
     id: "flooding_waterlogging",
-    title: "Flooding and waterlogging detection",
-    description: "Detects flooded and waterlogged road sections.",
+    label: "Flooding and waterlogging",
+    description: "Standing water or flooded road sections.",
+  },
+  {
+    id: "other",
+    label: "Other hazards",
+    description: "Any other road hazard not listed above.",
   },
 ];
 
 const STEPS = [
-  { number: 1, title: "Report a hazard", description: "Submit a photograph, location and description of the road hazard." },
-  { number: 2, title: "AI analysis", description: "The report is analysed by the relevant detection module for the selected hazard type." },
-  { number: 3, title: "Verification", description: "Concerned officials review the report and assign a verification status." },
-  { number: 4, title: "Monitoring", description: "Verified hazards appear on the interactive GIS map for monitoring and action." },
+  {
+    number: 1,
+    title: "Report a hazard",
+    description: "Submit a photograph, location and description of the road hazard.",
+  },
+  {
+    number: 2,
+    title: "Review",
+    description: "Reports are reviewed and assigned a verification status.",
+  },
+  {
+    number: 3,
+    title: "Monitor",
+    description: "Verified hazards appear on the interactive map for action.",
+  },
 ];
+
+interface Stat {
+  label: string;
+  value: string | null;
+}
+
+interface RecentReport {
+  id: string;
+  title: string;
+  hazard_type: string;
+  status: string;
+  district: string | null;
+  created_at: string;
+}
 
 export function Home() {
   const [stats, setStats] = useState<Stat[] | null>(null);
   const [statsError, setStatsError] = useState("");
-  const [reports, setReports] = useState<{ id: string; title: string; hazard_type: string; status: string; district: string | null; created_at: string }[]>([]);
+  const [reports, setReports] = useState<RecentReport[]>([]);
+  const [reportsError, setReportsError] = useState("");
 
   useEffect(() => {
+    let cancelled = false;
     getReports({ limit: 100 })
       .then((data) => {
+        if (cancelled) return;
         const total = data.length;
         const pending = data.filter((r) => r.status === "pending").length;
         const verified = data.filter((r) => r.status === "verified").length;
         const resolved = data.filter((r) => r.status === "resolved").length;
         setStats([
-          { label: "Reports received", value: String(total), placeholder: false },
-          { label: "Pending review", value: String(pending), placeholder: false },
-          { label: "Verified", value: String(verified), placeholder: false },
-          { label: "Resolved", value: String(resolved), placeholder: false },
+          { label: "Reports received", value: String(total) },
+          { label: "Pending review", value: String(pending) },
+          { label: "Verified", value: String(verified) },
+          { label: "Resolved", value: String(resolved) },
         ]);
         setReports(
-          data.slice(0, 6).map((r) => ({
-            id: r.id,
-            title: r.title,
-            hazard_type: r.hazard_type,
-            status: r.status,
-            district: r.district ?? "—",
-            created_at: r.created_at,
-          }))
+          data
+            .slice(0, 6)
+            .map((r): RecentReport => ({
+              id: r.id,
+              title: r.title,
+              hazard_type: r.hazard_type,
+              status: r.status,
+              district: r.district ?? "—",
+              created_at: r.created_at,
+            }))
         );
       })
       .catch(() => {
-        setStatsError("Statistics are not available at this time. Values below are placeholders only.");
-        setStats([
-          { label: "Reports received", value: null, placeholder: true },
-          { label: "Pending review", value: null, placeholder: true },
-          { label: "Verified", value: null, placeholder: true },
-          { label: "Resolved", value: null, placeholder: true },
-        ]);
+        if (cancelled) return;
+        setStatsError("Statistics are unavailable right now.");
+        setReportsError("Recent reports are unavailable right now.");
+        setStats([]);
+        setReports([]);
       });
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
   return (
     <main id="main" className="py-8">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 
-        {/* Project introduction */}
-        <section className="mb-10 border-b border-gray-300 pb-8">
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-            <div>
-              <p className="text-xs font-semibold text-gray-600 uppercase tracking-widest mb-2">
-                Government of Himachal Pradesh
-              </p>
-              <h1 className="text-3xl font-bold text-gray-900 mb-2">RoadWatch HP</h1>
-              <p className="text-gray-700 leading-relaxed">
-                AI-powered crowdsourced road hazard detection and monitoring
-                platform for Himachal Pradesh. Citizens and government
-                officials can report, verify and track road hazards across the
-                state through a single, formal portal.
-              </p>
-            </div>
-            <div className="text-right hidden md:block">
-              <Link to="/report" className="gov-btn">
-                File a new report
+        {/* Hero */}
+        <section className="mb-12 border-b border-gray-300 pb-8">
+          <div className="text-center">
+            <p className="text-xs font-semibold text-gray-600 uppercase tracking-widest mb-2">
+              RoadWatch HP
+            </p>
+            <h1 className="text-3xl font-bold text-gray-900 mb-4">
+              Community road hazard reporting for Himachal Pradesh
+            </h1>
+            <p className="text-lg text-gray-700 leading-relaxed mb-8 max-w-2xl mx-auto">
+              RoadWatch HP is an independent, community-driven platform for
+              reporting and monitoring road hazards across Himachal Pradesh.
+              Landslides, road damage, rockfall, flooding and other hazards can
+              be reported by anyone and reviewed for verification.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-3 justify-center">
+              <Link to="/report" className="rw-btn">
+                Report a Hazard
+              </Link>
+              <Link to="/map" className="rw-btn-outline">
+                Explore Hazard Map
               </Link>
             </div>
           </div>
         </section>
 
-        {/* Hazard categories */}
-        <section className="mb-10">
+        {/* Problem statement */}
+        <section className="mb-12">
           <h2 className="text-sm font-semibold text-gray-900 uppercase tracking-tight mb-6">
-            AI detection modules
+            The problem
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 divide-y divide-gray-300 md:divide-y-0 md:divide-x">
-            {MODULES.map((module) => (
-              <div
-                key={module.id}
-                className="p-6 border-b md:border-b-0 last:mb-0 md:last:border-b md:border-r"
-              >
+          <p className="text-gray-700 leading-relaxed mb-6 max-w-3xl">
+             Road hazards on Himachal Pradesh's hill roads — landslides,
+            potholes, rockfall and flooding — can appear suddenly and put
+            travelers at risk. There is no simple, central place for citizens to
+            report these hazards and track their resolution. RoadWatch HP closes
+            that gap by collecting reports, plotting them on a map, and giving
+            reviewers a way to verify and act on them.
+          </p>
+        </section>
+
+        {/* Hazard categories */}
+        <section className="mb-12">
+          <div className="flex justify-between items-end mb-6">
+            <h2 className="text-sm font-semibold text-gray-900 uppercase tracking-tight">
+              Hazard categories
+            </h2>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 border border-gray-300">
+            {HAZARD_CATEGORIES.map((category) => (
+              <div key={category.id} className="p-4 border-b border-gray-300 lg:border-b-0 lg:border-r last:border-0">
                 <h3 className="text-sm font-semibold text-gray-900 mb-1">
-                  {module.title}
+                  {category.label}
                 </h3>
                 <p className="text-sm text-gray-600 leading-relaxed">
-                  {module.description}
+                  {category.description}
                 </p>
               </div>
             ))}
           </div>
         </section>
 
-        {/* Report hazard call-to-action */}
-        <section className="mb-10 border border-gray-300 bg-gray-50 p-8 text-center">
-          <h2 className="text-sm font-semibold text-gray-900 uppercase tracking-tight mb-3">
-            Report a road hazard
+        {/* Statistics */}
+        <section className="mb-12">
+          <h2 className="text-sm font-semibold text-gray-900 uppercase tracking-tight mb-6">
+            Platform statistics
           </h2>
-          <p className="text-sm text-gray-700 mb-6 leading-relaxed">
-            Submit a photograph, location and description of the hazard.
-            Reports are reviewed by the concerned authority and assigned a
-            verification status.
-          </p>
-          <Link to="/report" className="gov-btn inline-block">
-            File a new report
-          </Link>
-        </section>
-
-        {/* Himachal Pradesh map section */}
-        <section className="mb-10">
-          <div className="flex justify-between items-end mb-3">
-            <h2 className="text-sm font-semibold text-gray-900 uppercase tracking-tight">
-              Hazard map — Himachal Pradesh
-            </h2>
-            <Link to="/map" className="text-sm text-gray-600 hover:underline">
-              View full map
-            </Link>
-          </div>
-          <div
-            className="border border-gray-300 aspect-video relative"
-            aria-label="Interactive map of Himachal Pradesh showing reported road hazards"
-          >
-            <MapContainer
-                center={HP_CENTER}
-                zoom={7}
-                className="absolute inset-0"
-                style={{ zIndex: 1 }}
-              >
-                <TileLayer
-                  attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                  url="https://tile.openstreetmap.org/{z}/{x}/{y}.png"
-                />
-              </MapContainer>
+          {statsError ? (
+            <div className="rw-panel text-center py-8">
+              <p className="text-sm text-gray-600">{statsError}</p>
+              <p className="mt-2 text-xs text-gray-500">
+                Statistics are computed from real reports in the backend.
+              </p>
             </div>
-          <p className="mt-2 text-xs text-gray-500">
-            Base map &copy; OpenStreetMap contributors. Markers indicate the
-            location of reported hazards.
-          </p>
-        </section>
-
-        {/* Statistics section */}
-        <section className="mb-10 border border-gray-300 bg-white p-6">
-          <div className="flex justify-between items-end mb-6">
-            <h2 className="text-sm font-semibold text-gray-900 uppercase tracking-tight">
-              Statistics
-            </h2>
-            {statsError && (
-              <p className="text-xs text-gray-600">{statsError}</p>
-            )}
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            {stats ? (
-              stats.map((stat, i) => (
-                <div
-                  key={i}
-                  className="border border-gray-300 p-4 text-center"
-                >
-                  <p className="text-xs font-semibold text-gray-600 uppercase tracking-tight mb-1">
-                    {stat.label}
-                  </p>
-                  <p className="text-2xl font-bold text-gray-900">
-                    {stat.value ?? "—"}
-                  </p>
-                  {stat.placeholder && (
-                    <p className="text-[10px] text-gray-500 mt-1">
-                      Placeholder only
+          ) : (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              {stats?.length ? (
+                stats.map((stat) => (
+                  <div key={stat.label} className="border border-gray-300 p-4 text-center">
+                    <p className="text-xs font-semibold text-gray-600 uppercase tracking-tight mb-1">
+                      {stat.label}
                     </p>
-                  )}
+                    <p className="text-2xl font-bold text-gray-900">
+                      {stat.value}
+                    </p>
+                  </div>
+                ))
+              ) : (
+                <div className="col-span-4 text-center py-8 text-sm text-gray-500">
+                  No statistics available.
                 </div>
-              ))
-            ) : (
-              <div className="col-span-4 text-center py-8 text-sm text-gray-500">
-                No statistics available.
-              </div>
-            )}
-          </div>
+              )}
+            </div>
+          )}
           <p className="mt-4 text-xs text-gray-500">
-            Values are report counts from the database. They are not AI
-            predictions and are not fabricated. Where the backend is
-            unreachable, fields are shown as clearly labelled placeholders.
+            Statistics are computed from reports stored in the backend and are
+            not estimated or fabricated.
           </p>
         </section>
 
         {/* Recent reports */}
-        <section className="mb-10">
+        <section className="mb-12">
           <div className="flex justify-between items-center mb-4">
             <h2 className="text-sm font-semibold text-gray-900 uppercase tracking-tight">
               Recent reports
@@ -233,7 +224,7 @@ export function Home() {
             </Link>
           </div>
           <div className="border border-gray-300 overflow-hidden">
-            <table className="gov-table">
+            <table className="rw-table">
               <thead>
                 <tr>
                   <th>Report</th>
@@ -244,7 +235,13 @@ export function Home() {
                 </tr>
               </thead>
               <tbody>
-                {reports.length === 0 ? (
+                {reportsError || (stats === null && reports.length === 0) ? (
+                  <tr>
+                    <td colSpan={5} className="text-center py-6 text-gray-600">
+                      Recent reports are unavailable right now.
+                    </td>
+                  </tr>
+                ) : reports.length === 0 ? (
                   <tr>
                     <td colSpan={5} className="text-center py-6 text-gray-600">
                       No recent reports.
@@ -281,7 +278,7 @@ export function Home() {
           <h2 className="text-sm font-semibold text-gray-900 uppercase tracking-tight mb-6">
             How it works
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 divide-y divide-gray-300 md:divide-y-0 md:divide-x">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 divide-y divide-gray-300 md:divide-y-0 md:divide-x">
             {STEPS.map((step) => (
               <div key={step.number} className="p-4 border-b md:border-b-0 last:mb-0 md:last:border-b md:border-r">
                 <div className="border border-gray-300 w-8 h-8 flex items-center justify-center text-sm font-bold text-gray-900 mb-3">

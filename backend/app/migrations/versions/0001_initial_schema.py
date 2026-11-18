@@ -41,6 +41,7 @@ def upgrade() -> None:
             "id",
             postgresql.UUID(as_uuid=True),
             nullable=False,
+            server_default=sa.text("gen_random_uuid()"),
         ),
         sa.Column("code", sa.String(length=40), nullable=False),
         sa.Column("name", sa.String(length=100), nullable=False),
@@ -57,6 +58,15 @@ def upgrade() -> None:
     op.create_index(
         op.f("ix_hazard_types_code"), "hazard_types", ["code"], unique=True
     )
+    op.execute(
+        "INSERT INTO hazard_types (code, name, description) VALUES "
+        "('road_damage', 'Road damage', 'Potholes, cracks and rutting on road surfaces'), "
+        "('landslide', 'Landslide', 'Landslide-affected areas'), "
+        "('rockfall_debris', 'Rockfall and debris', 'Rockfall and debris hazards on hill roads'), "
+        "('flooding_waterlogging', 'Flooding and waterlogging', 'Flooded and waterlogged road sections'), "
+        "('other', 'Other', 'Other road hazard') "
+        "ON CONFLICT (code) DO NOTHING"
+    )
 
     # ---------- lookup: severity_levels ----------
     op.create_table(
@@ -65,6 +75,7 @@ def upgrade() -> None:
             "id",
             postgresql.UUID(as_uuid=True),
             nullable=False,
+            server_default=sa.text("gen_random_uuid()"),
         ),
         sa.Column("code", sa.String(length=20), nullable=False),
         sa.Column("name", sa.String(length=50), nullable=False),
@@ -82,6 +93,14 @@ def upgrade() -> None:
     op.create_index(
         op.f("ix_severity_levels_code"), "severity_levels", ["code"], unique=True
     )
+    op.execute(
+        "INSERT INTO severity_levels (code, name, sort_order) VALUES "
+        "('low', 'Low', 1), "
+        "('medium', 'Medium', 2), "
+        "('high', 'High', 3), "
+        "('critical', 'Critical', 4) "
+        "ON CONFLICT (code) DO NOTHING"
+    )
 
     # ---------- lookup: verification_statuses ----------
     op.create_table(
@@ -90,6 +109,7 @@ def upgrade() -> None:
             "id",
             postgresql.UUID(as_uuid=True),
             nullable=False,
+            server_default=sa.text("gen_random_uuid()"),
         ),
         sa.Column("code", sa.String(length=20), nullable=False),
         sa.Column("name", sa.String(length=50), nullable=False),
@@ -108,6 +128,14 @@ def upgrade() -> None:
         "verification_statuses",
         ["code"],
         unique=True,
+    )
+    op.execute(
+        "INSERT INTO verification_statuses (code, name) VALUES "
+        "('pending', 'Pending'), "
+        "('verified', 'Verified'), "
+        "('rejected', 'Rejected'), "
+        "('resolved', 'Resolved') "
+        "ON CONFLICT (code) DO NOTHING"
     )
 
     # ---------- users ----------

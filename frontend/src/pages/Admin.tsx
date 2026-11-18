@@ -19,29 +19,45 @@ const HAZARD_TYPES = [
   { value: "other", label: "Other" },
 ];
 
+const SEVERITIES = [
+  { value: "low", label: "Low" },
+  { value: "medium", label: "Medium" },
+  { value: "high", label: "High" },
+  { value: "critical", label: "Critical" },
+];
+
 export function Admin() {
   const [reports, setReports] = useState<HazardReport[]>([]);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
   const [filterType, setFilterType] = useState("");
+  const [filterSeverity, setFilterSeverity] = useState("");
   const [filterStatus, setFilterStatus] = useState("");
   const [editing, setEditing] = useState<string | null>(null);
   const [edits, setEdits] = useState<Record<string, Partial<HazardReport>>>({});
+  const [deleting, setDeleting] = useState<string | null>(null);
 
   useEffect(() => {
     loadReports();
   }, []);
 
   async function loadReports() {
+    setLoading(true);
+    setError("");
     try {
       setReports(await getReports());
     } catch (err) {
       setError(err instanceof Error ? err.message : "Failed to load reports.");
+    } finally {
+      setLoading(false);
     }
   }
 
   const filtered = reports.filter(
     (r) =>
       (!filterType || r.hazard_type === filterType) &&
+      (!filterSeverity || r.severity === filterSeverity) &&
       (!filterStatus || r.status === filterStatus)
   );
 
@@ -50,11 +66,11 @@ export function Admin() {
     if (!patch) return;
     try {
       const updated = await updateReport(id, patch);
-      setReports((list) =>
-        list.map((r) => (r.id === id ? updated : r))
-      );
+      setReports((list) => list.map((r) => (r.id === id ? updated : r)));
       setEditing(null);
       setEdits({});
+      setSuccess("Report updated successfully.");
+      setTimeout(() => setSuccess(""), 3000);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Update failed.");
     }
@@ -62,27 +78,66 @@ export function Admin() {
 
   async function removeReport(id: string) {
     if (!window.confirm("Delete this report?")) return;
+    setDeleting(id);
     try {
       await deleteReport(id);
       setReports((list) => list.filter((r) => r.id !== id));
+      if (editing === id) setEditing(null);
+      setSuccess("Report deleted successfully.");
+      setTimeout(() => setSuccess(""), 3000);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Delete failed.");
+    } finally {
+      setDeleting(null);
     }
+  }
+
+  const notice = (
+    <div className="mb-6 border border-amber-200 bg-amber-50 p-4 text-sm text-amber-900">
+      <p className="font-semibold mb-1">
+        Notice: this admin area is unauthenticated and intended for
+        development/demo use only.
+      </p>
+      <p>There is no authentication or role-based access control.</p>
+    </div>
+  );
+
+  if (loading) {
+    return (
+      <main id="main" className="py-8">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          {notice}
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">
+            Report management
+          </h1>
+          <div className="flex items-center justify-center py-16 text-gray-500">
+            Loading reports…
+          </div>
+        </div>
+      </main>
+    );
   }
 
   return (
     <main id="main" className="py-8">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        {notice}
         <h1 className="text-3xl font-bold text-gray-900 mb-2">
-          Hazard monitoring
+          Report management
         </h1>
         <p className="text-gray-700 mb-6">
-          Review, verify and update the status of reported road hazards.
+          Review and update the status of reported road hazards.
         </p>
 
         {error && (
           <div role="alert" className="mb-4 border border-gray-300 bg-gray-50 p-4 text-sm text-gray-900">
             {error}
+          </div>
+        )}
+
+        {success && (
+          <div className="mb-4 border border-gray-200 bg-gray-50 p-4 text-sm text-gray-900">
+            {success}
           </div>
         )}
 
@@ -97,6 +152,20 @@ export function Admin() {
               {HAZARD_TYPES.map((t) => (
                 <option key={t.value} value={t.value}>
                   {t.label}
+                </option>
+              ))}
+            </Select>
+          </div>
+          <div className="flex-1 md:w-64">
+            <Select
+              label="Filter by severity"
+              value={filterSeverity}
+              onChange={(e) => setFilterSeverity(e.target.value)}
+            >
+              <option value="">All severities</option>
+              {SEVERITIES.map((s) => (
+                <option key={s.value} value={s.value}>
+                  {s.label}
                 </option>
               ))}
             </Select>
@@ -118,7 +187,7 @@ export function Admin() {
         </div>
 
         <div className="border border-gray-300 overflow-hidden">
-          <table className="gov-table">
+          <table className="rw-table">
             <thead>
               <tr>
                 <th>Report</th>
@@ -157,7 +226,7 @@ export function Admin() {
                           <Button
                             variant="outline"
                             onClick={() => saveReport(report.id)}
-                            disabled={!edits[report.id]}
+                            disabled={!edits[report.id] || Object.keys(edits[report.id] || {}).length === 0}
                           >
                             Save
                           </Button>
@@ -182,8 +251,9 @@ export function Admin() {
                       <Button
                         variant="outline"
                         onClick={() => removeReport(report.id)}
+                        disabled={deleting === report.id}
                       >
-                        Delete
+                        {deleting === report.id ? "Deleting…" : "Delete"}
                       </Button>
                     </td>
                   </tr>

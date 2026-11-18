@@ -1,3 +1,5 @@
+import uuid
+
 from fastapi import FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse
@@ -16,25 +18,23 @@ from app.core.exceptions import (
     unhandled_exception_handler,
     validation_exception_handler,
 )
-from app.db.session import Base, engine
 from app.services.upload import get_uploaded_file
-
-Base.metadata.create_all(bind=engine)
 
 app = FastAPI(title=settings.app_name, debug=settings.debug)
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[settings.frontend_url, "http://localhost:5173"],
+    allow_origins=[settings.frontend_url, "http://localhost:5173", "http://127.0.0.1:5173"],
     allow_credentials=True,
-    allow_methods=["*"],
+    allow_methods=["GET", "POST", "PATCH", "DELETE", "OPTIONS"],
     allow_headers=["*"],
+    expose_headers=["x-request-id"],
 )
 
 
 @app.middleware("http")
 async def add_request_id(request: Request, call_next):
-    request_id = request.headers.get("x-request-id") or str(request.id)
+    request_id = request.headers.get("x-request-id") or str(uuid.uuid4())
     request.state.request_id = request_id
     response = await call_next(request)
     response.headers["x-request-id"] = request_id

@@ -9,8 +9,10 @@ from logging.config import fileConfig
 from alembic import context
 from sqlalchemy import engine_from_config, pool
 
-# Make the backend package importable when alembic is run from the backend dir.
-sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
+# Make the backend package importable when alembic is run from any directory.
+# env.py lives at <backend_root>/app/migrations/env.py; the directory that
+# contains the `app` package is <backend_root>, three levels up.
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 
 from app.core.config import settings  # noqa: E402
 from app.db.session import Base  # noqa: E402

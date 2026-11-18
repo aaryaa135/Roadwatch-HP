@@ -10,13 +10,13 @@ export type FieldProps = {
 export function Field({ label, hint, required, error, children }: FieldProps & { children: React.ReactNode }) {
   const id = useId();
   return (
-    <div className="gov-field">
-      <label htmlFor={id} className="gov-field-label">
+    <div className="rw-field">
+      <label htmlFor={id} className="rw-field-label">
         {label}
-        {required && <span className="ml-1 text-gray-500" aria-hidden="true">(optional)</span>}
+        {required && <span className="ml-1 text-gray-500" aria-hidden="true">(required)</span>}
       </label>
       {children}
-      {hint && <p className="gov-field-hint">{hint}</p>}
+      {hint && <p className="rw-field-hint">{hint}</p>}
       {error && (
         <p role="alert" className="mt-1 text-xs text-gray-900 font-medium">
           {error}
@@ -33,7 +33,7 @@ export const Input = forwardRef<
   <Field label={label} hint={hint} required={required} error={error}>
     <input
       ref={ref}
-      className="gov-input"
+      className="rw-input"
       aria-invalid={error ? "true" : "false"}
       aria-required={required}
       {...props}
@@ -47,7 +47,7 @@ export const Select = forwardRef<
   React.SelectHTMLAttributes<HTMLSelectElement> & FieldProps
 >(({ label, hint, required, error, children, ...props }, ref) => (
   <Field label={label} hint={hint} required={required} error={error}>
-    <select ref={ref} className="gov-select" aria-invalid={error ? "true" : "false"} aria-required={required} {...props}>
+    <select ref={ref} className="rw-select" aria-invalid={error ? "true" : "false"} aria-required={required} {...props}>
       {children}
     </select>
   </Field>
@@ -61,7 +61,7 @@ export const Textarea = forwardRef<
   <Field label={label} hint={hint} required={required} error={error}>
     <textarea
       ref={ref}
-      className="gov-textarea"
+      className="rw-textarea"
       rows={rows}
       aria-invalid={error ? "true" : "false"}
       aria-required={required}

@@ -22,7 +22,7 @@ from __future__ import annotations
 
 import uuid
 from datetime import datetime
-from typing import List, Optional
+from typing import Any, List, Optional
 
 from geoalchemy2 import Geometry
 from sqlalchemy import (
@@ -37,7 +37,7 @@ from sqlalchemy import (
     Text,
     func,
 )
-from sqlalchemy.dialects.postgresql import UUID
+from sqlalchemy.dialects.postgresql import JSON, UUID
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.db.session import Base
@@ -269,7 +269,7 @@ class AIDetection(Base):
     )
     model_type: Mapped[str] = mapped_column(String(30), nullable=False)
     confidence: Mapped[float] = mapped_column(Float, nullable=False)
-    bounding_box: Mapped[Optional[dict]] = mapped_column(nullable=True)
+    bounding_box: Mapped[Optional[dict[str, Any]]] = mapped_column(JSON, nullable=True)
     mask_url: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
     created_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True), server_default=func.now()

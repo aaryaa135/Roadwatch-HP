@@ -31,14 +31,20 @@ services:
     environment:
       DATABASE_URL: ${DATABASE_URL}
       AI_SERVICE_URL: http://ai-service:8001
+      PUBLIC_BACKEND_URL: http://localhost:8002
       FRONTEND_URL: ${FRONTEND_URL}
     ports:
-      - "8000:8000"
+      - "8002:8000"
     depends_on:
       db:
         condition: service_healthy
+    # Run Alembic migrations before starting the API so the database schema is
+    # always current before the application serves requests.
+    command: >
+      sh -c "alembic upgrade head && uvicorn app.main:app --host 0.0.0.0 --port 8000"
     volumes:
       - ./backend:/app
+      - backend_uploads:/app/uploads
 
   ai-service:
     build:
@@ -65,7 +71,7 @@ services:
     env_file:
       - .env
     environment:
-      VITE_API_URL: http://localhost:8000
+      VITE_API_URL: http://localhost:8002
       VITE_AI_SERVICE_URL: http://localhost:8001
     ports:
       - "5173:5173"
@@ -77,3 +83,4 @@ services:
 
 volumes:
   postgres_data:
+  backend_uploads:

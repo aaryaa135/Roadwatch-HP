@@ -17,7 +17,7 @@ export type {
 };
 
 const API_BASE =
-  import.meta.env.VITE_API_URL || "http://localhost:8000";
+  import.meta.env.VITE_API_URL || "http://localhost:8002";
 
 async function request(path: string, init?: RequestInit): Promise<Response> {
   const response = await fetch(`${API_BASE}${path}`, {

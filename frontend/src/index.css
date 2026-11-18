@@ -15,7 +15,7 @@
   a {
     @apply text-gray-900 no-underline hover:underline;
   }
-  .gov-sr-only {
+  .rw-sr-only {
     position: absolute;
     width: 1px;
     height: 1px;
@@ -29,56 +29,56 @@
 }
 
 @layer components {
-  .gov-header {
+  .rw-header {
     @apply border-b border-gray-300 bg-white;
   }
-  .gov-nav-link {
+  .rw-nav-link {
     @apply px-4 py-3 text-gray-700 font-medium border-b-2 border-transparent hover:border-gray-300 hover:bg-gray-50;
   }
-  .gov-nav-link-active {
+  .rw-nav-link-active {
     @apply border-black bg-gray-50;
   }
-  .gov-btn {
+  .rw-btn {
     @apply inline-flex items-center justify-center px-4 py-2 text-sm font-semibold text-white bg-gray-900 border border-gray-900 rounded-none hover:bg-gray-800 hover:border-gray-800 focus-visible:outline-none disabled:opacity-50 disabled:pointer-events-none transition-colors duration-150;
   }
-  .gov-btn-outline {
+  .rw-btn-outline {
     @apply inline-flex items-center justify-center px-4 py-2 text-sm font-semibold text-gray-900 bg-transparent border border-gray-300 rounded-none hover:bg-gray-100 focus-visible:outline-none disabled:opacity-50 disabled:pointer-events-none transition-colors duration-150;
   }
-  .gov-input {
+  .rw-input {
     @apply block w-full px-3 py-2 text-sm text-gray-900 border border-gray-300 rounded-none placeholder-gray-500 focus:border-gray-900 focus:ring-0;
   }
-  .gov-select {
+  .rw-select {
     @appearance none;
     @apply block w-full px-3 py-2 text-sm text-gray-900 border border-gray-300 rounded-none bg-white focus:border-gray-900 focus:ring-0;
   }
-  .gov-select::-ms-expand {
+  .rw-select::-ms-expand {
     display: none;
   }
-  .gov-textarea {
+  .rw-textarea {
     @apply block w-full px-3 py-2 text-sm text-gray-900 border border-gray-300 rounded-none placeholder-gray-500 focus:border-gray-900 focus:ring-0;
   }
-  .gov-field {
+  .rw-field {
     @apply mb-4;
   }
-  .gov-field-label {
+  .rw-field-label {
     @apply block text-sm font-semibold text-gray-900 mb-1;
   }
-  .gov-field-hint {
+  .rw-field-hint {
     @apply mt-1 text-xs text-gray-500;
   }
-  .gov-panel {
+  .rw-panel {
     @apply border border-gray-300 bg-white p-6;
   }
-  .gov-table {
+  .rw-table {
     @apply w-full text-left border-collapse border border-gray-300;
   }
-  .gov-table th {
+  .rw-table th {
     @apply border border-gray-300 bg-gray-50 px-3 py-2 text-sm font-semibold text-gray-900;
   }
-  .gov-table td {
+  .rw-table td {
     @apply border border-gray-300 px-3 py-2 text-sm text-gray-700;
   }
-  .gov-badge {
+  .rw-badge {
     @apply inline-flex items-center px-2 py-0.5 text-xs font-semibold text-gray-900 border border-gray-300 rounded-none uppercase tracking-tight;
   }
 }

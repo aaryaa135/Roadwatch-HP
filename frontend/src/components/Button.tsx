@@ -15,7 +15,7 @@ export function Button({
     <button
       type={type}
       disabled={disabled}
-      className={`gov-btn ${variant === "outline" ? "gov-btn-outline" : ""}`}
+      className={`rw-btn ${variant === "outline" ? "rw-btn-outline" : ""}`}
       {...props}
     >
       {children}

@@ -11,10 +11,10 @@ export function HazardTypeIcon({ type }: { type: string }) {
 
 export function SeverityBadge({ severity }: { severity: string }) {
   return (
-    <span className="gov-badge">{severity.charAt(0).toUpperCase() + severity.slice(1)}</span>
+    <span className="rw-badge">{severity.charAt(0).toUpperCase() + severity.slice(1)}</span>
   );
 }
 
 export function StatusBadge({ status }: { status: string }) {
-  return <span className="gov-badge">{status.replace(/_/g, " ").toUpperCase()}</span>;
+  return <span className="rw-badge">{status.replace(/_/g, " ").toUpperCase()}</span>;
 }

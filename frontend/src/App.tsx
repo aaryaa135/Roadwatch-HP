@@ -16,7 +16,7 @@ const routes = [
 export default function App() {
   return (
     <div className="flex min-h-screen flex-col text-gray-900">
-      <Navbar active={window.location.pathname} />
+      <Navbar />
       <main className="flex-grow">
         <Router routes={routes} />
       </main>

@@ -34,6 +34,7 @@ export interface NewReport {
   district: string;
   latitude: number;
   longitude: number;
+  image_urls?: string[];
 }
 
 export interface AIInferenceResult {
