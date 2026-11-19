@@ -55,17 +55,6 @@ export function Login() {
     }
   };
 
-  const fillDemo = (role: "admin" | "citizen") => {
-    if (role === "admin") {
-      setEmail("admin@roadwatchhp.com");
-      setPassword("Admin@12345");
-    } else {
-      setEmail("citizen@roadwatchhp.com");
-      setPassword("Citizen@12345");
-    }
-    setError("");
-  };
-
   return (
     <AuthShell
       title="Sign in to RoadWatch HP"
@@ -119,39 +108,6 @@ export function Login() {
           Sign in
         </Button>
       </form>
-
-      <div className="mt-6 rounded-lg border border-line bg-surface p-4">
-        <p className="text-xs font-semibold uppercase tracking-wider text-muted">
-          Demonstration accounts
-        </p>
-        <p className="mt-1 text-xs text-muted">
-          Seeded on first backend start. Use these for the project demonstration.
-        </p>
-        <div className="mt-3 flex flex-col gap-2 sm:flex-row">
-          <Button
-            type="button"
-            variant="outline"
-            size="sm"
-            className="flex-1"
-            onClick={() => fillDemo("admin")}
-          >
-            Admin credentials
-          </Button>
-          <Button
-            type="button"
-            variant="outline"
-            size="sm"
-            className="flex-1"
-            onClick={() => fillDemo("citizen")}
-          >
-            Citizen credentials
-          </Button>
-        </div>
-        <div className="mt-3 grid gap-1 text-[11px] text-muted">
-          <p>admin@roadwatchhp.com · Admin@12345</p>
-          <p>citizen@roadwatchhp.com · Citizen@12345</p>
-        </div>
-      </div>
     </AuthShell>
   );
 }
