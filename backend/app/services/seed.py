@@ -74,11 +74,34 @@ def seed_defaults(db: Session) -> None:
             db.add(VerificationStatus(code=code, name=name))
 
     demo_users = [
-        ("RoadWatch Administrator", "admin@roadwatch.local", "admin", "Admin@12345", "Shimla"),
-        ("Demo Citizen", "citizen@roadwatch.local", "citizen", "Citizen@12345", "Mandi"),
+        (
+            "RoadWatch Administrator",
+            "admin@roadwatchhp.com",
+            "admin@roadwatch.local",
+            "admin",
+            "Admin@12345",
+            "Shimla",
+        ),
+        (
+            "Demo Citizen",
+            "citizen@roadwatchhp.com",
+            "citizen@roadwatch.local",
+            "citizen",
+            "Citizen@12345",
+            "Mandi",
+        ),
     ]
-    for full_name, email, role, password, district in demo_users:
+    for full_name, email, legacy_email, role, password, district in demo_users:
         existing = db.query(User).filter(func.lower(User.email) == email).one_or_none()
+        if existing is None and legacy_email:
+            legacy = (
+                db.query(User)
+                .filter(func.lower(User.email) == legacy_email)
+                .one_or_none()
+            )
+            if legacy is not None:
+                legacy.email = email
+                existing = legacy
         if existing is None:
             db.add(
                 User(

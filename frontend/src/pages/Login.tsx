@@ -57,10 +57,10 @@ export function Login() {
 
   const fillDemo = (role: "admin" | "citizen") => {
     if (role === "admin") {
-      setEmail("admin@roadwatch.local");
+      setEmail("admin@roadwatchhp.com");
       setPassword("Admin@12345");
     } else {
-      setEmail("citizen@roadwatch.local");
+      setEmail("citizen@roadwatchhp.com");
       setPassword("Citizen@12345");
     }
     setError("");
@@ -148,8 +148,8 @@ export function Login() {
           </Button>
         </div>
         <div className="mt-3 grid gap-1 text-[11px] text-muted">
-          <p>admin@roadwatch.local · Admin@12345</p>
-          <p>citizen@roadwatch.local · Citizen@12345</p>
+          <p>admin@roadwatchhp.com · Admin@12345</p>
+          <p>citizen@roadwatchhp.com · Citizen@12345</p>
         </div>
       </div>
     </AuthShell>
