@@ -1,4 +1,5 @@
 import { useState } from "react";
+import type { MouseEvent } from "react";
 import { Link, NavLink, Outlet } from "react-router-dom";
 import { ArrowRight, Menu, X } from "lucide-react";
 import { useAuth } from "../../context/AuthContext";
@@ -18,12 +19,28 @@ export function PublicLayout() {
   const [open, setOpen] = useState(false);
   const { isAuthenticated } = useAuth();
 
+  const handleSectionClick = (
+    event: MouseEvent<HTMLAnchorElement>,
+    to: string
+  ) => {
+    setOpen(false);
+    if (window.location.pathname !== "/") return;
+    event.preventDefault();
+    const id = to.split("#")[1];
+    const target = document.getElementById(id);
+    if (target) {
+      target.scrollIntoView({ behavior: "smooth", block: "start" });
+      window.history.replaceState(null, "", to);
+    }
+  };
+
   return (
     <div className="flex min-h-screen flex-col bg-white">
       <a href="#main-content" className="rw-sr-only">
         Skip to main content
       </a>
       <header className="sticky top-0 z-40 border-b border-line/80 bg-white/95 backdrop-blur">
+        <div className="rw-gradient-bar h-1 w-full" aria-hidden="true" />
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
           <Link to="/" aria-label="RoadWatch HP home">
             <Logo />
@@ -35,7 +52,8 @@ export function PublicLayout() {
                 <a
                   key={link.to}
                   href={link.to}
-                  className="rounded-md px-3 py-2 text-sm font-medium text-muted transition-colors hover:bg-surface hover:text-ink"
+                  onClick={(event) => handleSectionClick(event, link.to)}
+                  className="rounded-md px-3 py-2 text-sm font-medium text-muted transition-colors hover:bg-brand-50 hover:text-brand-700"
                 >
                   {link.label}
                 </a>
@@ -48,8 +66,8 @@ export function PublicLayout() {
                     cn(
                       "rounded-md px-3 py-2 text-sm font-medium transition-colors",
                       isActive
-                        ? "bg-surface text-ink"
-                        : "text-muted hover:bg-surface hover:text-ink"
+                        ? "bg-brand-50 text-brand-700"
+                        : "text-muted hover:bg-brand-50 hover:text-brand-700"
                     )
                   }
                 >
@@ -99,8 +117,8 @@ export function PublicLayout() {
                   <a
                     key={link.to}
                     href={link.to}
-                    onClick={() => setOpen(false)}
-                    className="block rounded-lg px-3 py-2.5 text-sm font-medium text-muted hover:bg-surface hover:text-ink"
+                    onClick={(event) => handleSectionClick(event, link.to)}
+                    className="block rounded-lg px-3 py-2.5 text-sm font-medium text-muted hover:bg-brand-50 hover:text-brand-700"
                   >
                     {link.label}
                   </a>
@@ -114,8 +132,8 @@ export function PublicLayout() {
                       cn(
                         "block rounded-lg px-3 py-2.5 text-sm font-medium",
                         isActive
-                          ? "bg-surface text-ink"
-                          : "text-muted hover:bg-surface hover:text-ink"
+                          ? "bg-brand-50 text-brand-700"
+                          : "text-muted hover:bg-brand-50 hover:text-brand-700"
                       )
                     }
                   >

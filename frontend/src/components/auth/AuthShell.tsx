@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import { Link } from "react-router-dom";
 import { MapPinned, ShieldCheck, Waypoints } from "lucide-react";
+import { cn } from "../../utils/format";
 import { Logo } from "../brand/Logo";
 
 export function AuthShell({
@@ -54,6 +55,8 @@ export function AuthShell({
             <circle cx="320" cy="420" r="5" fill="#ffffff" fillOpacity="0.5" />
           </svg>
         </div>
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,rgba(70,128,95,0.35),transparent_55%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_right,rgba(217,119,6,0.18),transparent_55%)]" />
         <div className="relative">
           <Link to="/" aria-label="RoadWatch HP home">
             <Logo light />
@@ -78,16 +81,19 @@ export function AuthShell({
             {
               icon: MapPinned,
               title: "Live hazard map",
+              tone: "bg-brand-500/20 text-brand-300",
               text: "Clustered reports on OpenStreetMap.",
             },
             {
               icon: ShieldCheck,
               title: "Verified workflow",
+              tone: "bg-sky-500/20 text-sky-300",
               text: "Reviewer actions with an audit trail.",
             },
             {
               icon: Waypoints,
               title: "Real data only",
+              tone: "bg-amber-500/20 text-amber-300",
               text: "No fabricated statistics or AI output.",
             },
           ].map((item) => (
@@ -95,7 +101,14 @@ export function AuthShell({
               key={item.title}
               className="flex items-start gap-3 rounded-xl border border-white/10 bg-white/5 p-4"
             >
-              <item.icon className="mt-0.5 h-5 w-5 shrink-0 text-brand-300" />
+              <span
+                className={cn(
+                  "mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg",
+                  item.tone
+                )}
+              >
+                <item.icon className="h-4 w-4" />
+              </span>
               <div>
                 <p className="text-sm font-semibold text-white">{item.title}</p>
                 <p className="mt-0.5 text-xs text-white/45">{item.text}</p>

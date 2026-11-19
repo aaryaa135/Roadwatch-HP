@@ -18,6 +18,7 @@ import {
 import { Button } from "../components/ui/Button";
 import { HazardIcon } from "../components/reports/Badges";
 import { REPORTABLE_HAZARDS } from "../utils/constants";
+import { cn } from "../utils/format";
 
 const HERO_IMAGE =
   "https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=2400&q=80";
@@ -26,24 +27,28 @@ const steps = [
   {
     icon: Camera,
     title: "Capture",
+    tone: "bg-brand-100 text-brand-700",
     description:
       "A citizen photographs a road hazard and attaches GPS coordinates from the field.",
   },
   {
     icon: ScanSearch,
     title: "Detect",
+    tone: "bg-sky-100 text-sky-700",
     description:
       "The AI service analyses the image for the relevant hazard model and returns confidence and detections.",
   },
   {
     icon: ShieldCheck,
     title: "Verify",
+    tone: "bg-amber-100 text-amber-700",
     description:
       "Authorised reviewers inspect the report, AI output and possible duplicates before verification.",
   },
   {
     icon: Activity,
     title: "Monitor",
+    tone: "bg-rose-100 text-rose-700",
     description:
       "Verified hazards appear on the live GIS map and feed the analytics workspace.",
   },
@@ -53,36 +58,42 @@ const features = [
   {
     icon: MapPinned,
     title: "Interactive GIS map",
+    tone: "bg-brand-100 text-brand-700",
     description:
       "Explore clustered hazard markers across Himachal Pradesh with category, severity and verification filters.",
   },
   {
     icon: Sparkles,
     title: "AI-assisted detection",
+    tone: "bg-violet-100 text-violet-700",
     description:
       "Model confidence is shown separately from severity. When model weights are unavailable, the platform says so instead of inventing a result.",
   },
   {
     icon: TriangleAlert,
     title: "Severity assessment",
+    tone: "bg-amber-100 text-amber-700",
     description:
       "Low, medium, high and critical severity grades are tracked independently from AI confidence and verification.",
   },
   {
     icon: Layers,
     title: "Duplicate awareness",
+    tone: "bg-sky-100 text-sky-700",
     description:
       "Nearby reports of the same category are surfaced for reviewers before a decision is made.",
   },
   {
     icon: ShieldCheck,
     title: "Verification workflow",
+    tone: "bg-emerald-100 text-emerald-700",
     description:
       "A clear audit trail records verification, rejection and resolution actions with reviewer remarks.",
   },
   {
     icon: Database,
     title: "Real analytics",
+    tone: "bg-rose-100 text-rose-700",
     description:
       "Charts are generated from stored reports. No fabricated statistics and no synthetic production data.",
   },
@@ -114,6 +125,7 @@ export function Landing() {
           )}
           <div className="absolute inset-0 bg-gradient-to-r from-charcoal-950/90 via-charcoal-950/70 to-charcoal-900/30" />
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,rgba(53,106,77,0.35),transparent_55%)]" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(217,119,6,0.22),transparent_50%)]" />
         </div>
 
         <div className="relative mx-auto grid max-w-7xl gap-10 px-4 pb-20 pt-16 sm:px-6 sm:pb-24 sm:pt-20 lg:grid-cols-[1.15fr_0.85fr] lg:items-end lg:px-8 lg:pb-28 lg:pt-28">
@@ -143,7 +155,7 @@ export function Landing() {
                 <Button
                   size="lg"
                   variant="outline"
-                  className="border-white/20 bg-white/5 text-white hover:bg-white/10"
+                  className="border-white/20 bg-white/5 text-white hover:bg-white/10 hover:text-white"
                   icon={<Camera className="h-4 w-4" />}
                 >
                   Report a hazard
@@ -157,14 +169,17 @@ export function Landing() {
 
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-2">
             {[
-              { value: "10", label: "Hazard categories" },
-              { value: "4", label: "AI model families" },
-              { value: "GIS", label: "Live map layer" },
-              { value: "Audit", label: "Verification trail" },
+              { value: "10", label: "Hazard categories", accent: "border-l-brand-400" },
+              { value: "4", label: "AI model families", accent: "border-l-sky-400" },
+              { value: "GIS", label: "Live map layer", accent: "border-l-amber-400" },
+              { value: "Audit", label: "Verification trail", accent: "border-l-rose-400" },
             ].map((item) => (
               <div
                 key={item.label}
-                className="rounded-xl border border-white/10 bg-white/5 p-4 backdrop-blur-sm"
+                className={cn(
+                  "rounded-xl border border-l-2 border-white/10 bg-white/5 p-4 backdrop-blur-sm",
+                  item.accent
+                )}
               >
                 <p className="text-2xl font-bold text-white">{item.value}</p>
                 <p className="mt-1 text-[11px] font-medium uppercase tracking-wider text-white/45">
@@ -222,7 +237,12 @@ export function Landing() {
                   className="rounded-xl border border-line bg-white p-5 shadow-card"
                 >
                   <div className="flex items-center justify-between">
-                    <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-brand-50 text-brand-700">
+                    <div
+                      className={cn(
+                        "flex h-10 w-10 items-center justify-center rounded-lg",
+                        step.tone
+                      )}
+                    >
                       <step.icon className="h-5 w-5" />
                     </div>
                     <span className="text-xs font-semibold text-muted">
@@ -261,9 +281,14 @@ export function Landing() {
             {features.map((feature) => (
               <div
                 key={feature.title}
-                className="group rounded-xl border border-line bg-white p-5 transition-colors hover:border-brand-200 hover:bg-brand-50/30"
+                className="group rounded-xl border border-line bg-white p-5 transition duration-200 hover:-translate-y-0.5 hover:border-brand-200 hover:bg-brand-50/30 hover:shadow-card"
               >
-                <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-surface text-brand-700 transition-colors group-hover:bg-white">
+                <div
+                  className={cn(
+                    "flex h-10 w-10 items-center justify-center rounded-lg transition-transform group-hover:scale-105",
+                    feature.tone
+                  )}
+                >
                   <feature.icon className="h-5 w-5" />
                 </div>
                 <h3 className="mt-4 text-sm font-semibold text-ink">
@@ -300,9 +325,9 @@ export function Landing() {
             {REPORTABLE_HAZARDS.map((hazard) => (
               <div
                 key={hazard.code}
-                className="rounded-xl border border-line bg-white p-4"
+                className="rw-card rw-card-hover p-4"
               >
-                <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-surface text-brand-700">
+                <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-gradient-to-br from-brand-50 to-brand-100 text-brand-700">
                   <HazardIcon type={hazard.code} className="h-5 w-5" />
                 </div>
                 <h3 className="mt-3 text-sm font-semibold text-ink">
@@ -348,7 +373,7 @@ export function Landing() {
               {technology.map((item) => (
                 <div
                   key={item.label}
-                  className="rounded-xl border border-line bg-white p-4"
+                  className="rounded-xl border border-l-2 border-line border-l-brand-300 bg-white p-4 transition hover:border-brand-300 hover:shadow-card"
                 >
                   <p className="text-sm font-semibold text-ink">{item.label}</p>
                   <p className="mt-1 text-xs text-muted">{item.detail}</p>
@@ -409,7 +434,7 @@ export function Landing() {
         </div>
       </section>
 
-      <section className="bg-charcoal-900 py-14">
+      <section className="relative overflow-hidden bg-gradient-to-r from-charcoal-950 via-charcoal-900 to-brand-900 py-14">
         <div className="mx-auto flex max-w-7xl flex-col items-start justify-between gap-6 px-4 sm:px-6 lg:flex-row lg:items-center lg:px-8">
           <div>
             <h2 className="text-2xl font-bold tracking-tight text-white sm:text-3xl">
@@ -427,7 +452,7 @@ export function Landing() {
               <Button
                 size="lg"
                 variant="outline"
-                className="border-white/20 bg-white/5 text-white hover:bg-white/10"
+                className="border-white/20 bg-white/5 text-white hover:bg-white/10 hover:text-white"
               >
                 Explore map
               </Button>

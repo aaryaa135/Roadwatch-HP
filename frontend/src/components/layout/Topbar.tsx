@@ -103,7 +103,7 @@ export function Topbar({ onOpenMobile }: { onOpenMobile: () => void }) {
 
         <div className="min-w-0 flex-1">
           <div className="flex items-center gap-1.5 text-[11px] text-muted">
-            <Link to="/app" className="hover:text-ink">
+            <Link to="/app" className="font-medium text-brand-700 hover:text-brand-800">
               RoadWatch
             </Link>
             <ChevronRight className="h-3 w-3" aria-hidden="true" />
@@ -194,7 +194,7 @@ export function Topbar({ onOpenMobile }: { onOpenMobile: () => void }) {
             aria-label="Open profile menu"
             aria-expanded={profileOpen}
           >
-            <span className="flex h-8 w-8 items-center justify-center rounded-full bg-brand-700 text-[11px] font-bold text-white">
+            <span className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-brand-500 to-brand-700 text-[11px] font-bold text-white">
               {user ? initials(user.full_name) : "RW"}
             </span>
             <span className="hidden max-w-[120px] truncate text-xs font-semibold text-ink md:block">
@@ -249,6 +249,7 @@ export function Topbar({ onOpenMobile }: { onOpenMobile: () => void }) {
           )}
         </div>
       </div>
+      <div className="rw-gradient-bar h-0.5 w-full" aria-hidden="true" />
     </header>
   );
 }

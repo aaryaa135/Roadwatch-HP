@@ -1,5 +1,9 @@
-export function cn(...classes: (string | false | null | undefined)[]) {
-  return classes.filter(Boolean).join(" ");
+import { clsx } from "clsx";
+import type { ClassValue } from "clsx";
+import { twMerge } from "tailwind-merge";
+
+export function cn(...classes: ClassValue[]) {
+  return twMerge(clsx(classes));
 }
 
 export function formatDate(value: string | Date | null | undefined) {

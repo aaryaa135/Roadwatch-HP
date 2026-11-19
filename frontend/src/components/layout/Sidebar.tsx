@@ -64,7 +64,7 @@ function SidebarLink({
         cn(
           "group relative flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors",
           isActive
-            ? "bg-white/10 text-white"
+            ? "bg-gradient-to-r from-brand-600 to-brand-500 text-white shadow-sm"
             : "text-white/60 hover:bg-white/5 hover:text-white",
           collapsed && "justify-center px-0"
         )
@@ -73,7 +73,7 @@ function SidebarLink({
       {({ isActive }) => (
         <>
           {isActive && (
-            <span className="absolute left-0 top-1/2 h-5 w-0.5 -translate-y-1/2 rounded-full bg-brand-400" />
+            <span className="absolute left-0 top-1/2 h-5 w-0.5 -translate-y-1/2 rounded-full bg-amber-400" />
           )}
           <Icon className="h-[18px] w-[18px] shrink-0" aria-hidden="true" />
           {!collapsed && <span className="truncate">{item.label}</span>}
@@ -94,7 +94,7 @@ function SectionLabel({
     return <div className="mx-auto my-3 h-px w-6 bg-white/10" aria-hidden="true" />;
   }
   return (
-    <p className="mb-2 mt-5 px-3 text-[10px] font-semibold uppercase tracking-[0.16em] text-white/35">
+    <p className="mb-2 mt-5 px-3 text-[10px] font-semibold uppercase tracking-[0.16em] text-brand-300/70">
       {children}
     </p>
   );
@@ -122,6 +122,7 @@ export function Sidebar({
 
   const content = (
     <div className="flex h-full flex-col bg-charcoal-900 text-white">
+      <div className="rw-gradient-bar h-1 w-full shrink-0" aria-hidden="true" />
       <div
         className={cn(
           "flex h-16 items-center border-b border-white/10 px-4",
@@ -198,7 +199,7 @@ export function Sidebar({
             collapsed && "justify-center"
           )}
         >
-          <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-brand-600 text-[11px] font-bold text-white">
+          <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-brand-400 to-brand-700 text-[11px] font-bold text-white">
             {user ? initials(user.full_name) : "RW"}
           </div>
           {!collapsed && (

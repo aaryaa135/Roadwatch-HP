@@ -8,11 +8,11 @@ type Size = "sm" | "md" | "lg";
 
 const variants: Record<Variant, string> = {
   primary:
-    "bg-brand-700 text-white border border-brand-700 hover:bg-brand-800 hover:border-brand-800 shadow-sm",
+    "bg-gradient-to-r from-brand-700 to-brand-600 text-white border border-brand-700 hover:from-brand-800 hover:to-brand-700 hover:border-brand-800 shadow-sm",
   secondary:
-    "bg-charcoal-900 text-white border border-charcoal-900 hover:bg-charcoal-800",
+    "bg-gradient-to-r from-charcoal-900 to-charcoal-800 text-white border border-charcoal-900 hover:from-charcoal-800 hover:to-charcoal-700",
   outline:
-    "bg-white text-ink border border-line hover:bg-surface hover:border-line",
+    "bg-white text-ink border border-line hover:bg-surface hover:border-brand-300",
   ghost: "bg-transparent text-ink border border-transparent hover:bg-surface",
 };
 

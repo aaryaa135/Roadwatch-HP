@@ -14,6 +14,7 @@ export function PageHeader({
   return (
     <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
       <div className="min-w-0">
+        <div className="mb-2 h-1 w-12 rounded-full bg-gradient-to-r from-brand-600 to-amber-400" />
         {eyebrow && (
           <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-brand-700">
             {eyebrow}
