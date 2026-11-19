@@ -28,6 +28,10 @@ class Settings(BaseSettings):
 
     frontend_url: str = "http://localhost:5173"
 
+    # Auth. Override SECRET_KEY in production.
+    secret_key: str = "roadwatch-hp-development-secret-change-me"
+    access_token_expire_minutes: int = 60 * 24 * 7
+
     upload_dir: str = "uploads"
     # Public URL prefix for uploaded images. Derived from public_backend_url.
     upload_base_url: str = "http://localhost:8002/uploads"

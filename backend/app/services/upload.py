@@ -15,7 +15,7 @@ from typing import Optional
 from fastapi import UploadFile
 from starlette.responses import FileResponse
 
-from backend.app.core.config import settings
+from app.core.config import settings
 
 ALLOWED_EXTENSIONS = {".jpg", ".jpeg", ".png", ".webp"}
 ALLOWED_MIME_TYPES = {

@@ -7,7 +7,14 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.exceptions import RequestValidationError
 from pydantic import ValidationError as PydanticValidationError
 
-from app.api.routes import ai as ai_router, reports as reports_router, uploads as uploads_router
+from app.api.routes import (
+    ai as ai_router,
+    analytics as analytics_router,
+    auth as auth_router,
+    hazards as hazards_router,
+    reports as reports_router,
+    uploads as uploads_router,
+)
 from app.core.config import settings
 from app.core.exceptions import (
     AppError,
@@ -18,9 +25,20 @@ from app.core.exceptions import (
     unhandled_exception_handler,
     validation_exception_handler,
 )
+from app.db.session import SessionLocal
+from app.services.seed import try_seed_defaults
 from app.services.upload import get_uploaded_file
 
 app = FastAPI(title=settings.app_name, debug=settings.debug)
+
+
+@app.on_event("startup")
+def seed_lookups() -> None:
+    db = SessionLocal()
+    try:
+        try_seed_defaults(db)
+    finally:
+        db.close()
 
 app.add_middleware(
     CORSMiddleware,
@@ -48,7 +66,10 @@ app.add_exception_handler(RequestValidationError, validation_exception_handler)
 app.add_exception_handler(PydanticValidationError, pydantic_validation_exception_handler)
 app.add_exception_handler(Exception, unhandled_exception_handler)
 
+app.include_router(auth_router.router)
 app.include_router(reports_router.router)
+app.include_router(hazards_router.router)
+app.include_router(analytics_router.router)
 app.include_router(ai_router.router)
 app.include_router(uploads_router.router)
 

@@ -54,6 +54,7 @@ class User(Base):
     phone: Mapped[Optional[str]] = mapped_column(String(20), nullable=True)
     role: Mapped[str] = mapped_column(String(20), nullable=False, default="citizen")
     district: Mapped[Optional[str]] = mapped_column(String(50), nullable=True)
+    password_hash: Mapped[Optional[str]] = mapped_column(String(255), nullable=True)
     is_active: Mapped[bool] = mapped_column(Boolean, nullable=False, default=True)
     created_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True), server_default=func.now()
@@ -165,6 +166,10 @@ class HazardReport(Base):
         ARRAY(Text), nullable=False, server_default="{}"
     )
     ai_confidence: Mapped[Optional[float]] = mapped_column(Float, nullable=True)
+    # Separate from verification status: unresolved | in_progress | resolved
+    resolution_status: Mapped[str] = mapped_column(
+        String(20), nullable=False, default="unresolved", server_default="unresolved"
+    )
     created_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True), server_default=func.now()
     )
@@ -188,6 +193,12 @@ class HazardReport(Base):
     )
     detections: Mapped[List["AIDetection"]] = relationship(
         "AIDetection", back_populates="report", cascade="all, delete-orphan"
+    )
+    verifications: Mapped[List["ReportVerification"]] = relationship(
+        "ReportVerification",
+        back_populates="report",
+        cascade="all, delete-orphan",
+        order_by="ReportVerification.created_at",
     )
     # Reports that list this report as their original (i.e. this is the canonical report).
     duplicates_of_me: Mapped[List["ReportDuplicate"]] = relationship(
@@ -253,6 +264,37 @@ class ReportDuplicate(Base):
         "HazardReport",
         foreign_keys=[duplicate_report_id],
         back_populates="duplicate_of",
+    )
+
+
+class ReportVerification(Base):
+    """Audit trail of review actions performed on a hazard report."""
+
+    __tablename__ = "report_verifications"
+
+    id: Mapped[uuid.UUID] = mapped_column(
+        UUID(as_uuid=True), primary_key=True, default=uuid.uuid4
+    )
+    report_id: Mapped[uuid.UUID] = mapped_column(
+        UUID(as_uuid=True),
+        ForeignKey("hazard_reports.id", ondelete="CASCADE"),
+        nullable=False,
+        index=True,
+    )
+    reviewer_id: Mapped[Optional[uuid.UUID]] = mapped_column(
+        UUID(as_uuid=True),
+        ForeignKey("users.id", ondelete="SET NULL"),
+        nullable=True,
+    )
+    reviewer_name: Mapped[Optional[str]] = mapped_column(String(100), nullable=True)
+    action: Mapped[str] = mapped_column(String(20), nullable=False)  # verified, rejected, resolved
+    remarks: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
+    created_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True), server_default=func.now()
+    )
+
+    report: Mapped["HazardReport"] = relationship(
+        "HazardReport", back_populates="verifications"
     )
 
 
