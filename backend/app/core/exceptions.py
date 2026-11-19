@@ -85,7 +85,9 @@ def _validation_error_detail(errors: list) -> Dict[str, Any]:
     return field_errors
 
 
-async def app_error_handler(request: Request, exc: AppError) -> JSONResponse:
+async def app_error_handler(request: Request, exc: Exception) -> JSONResponse:
+    if not isinstance(exc, AppError):
+        return await unhandled_exception_handler(request, exc)
     return JSONResponse(
         status_code=exc.status_code,
         content=ErrorResponse(
@@ -114,8 +116,10 @@ async def http_exception_handler(request: Request, exc: Exception) -> JSONRespon
 
 
 async def validation_exception_handler(
-    request: Request, exc: RequestValidationError
+    request: Request, exc: Exception
 ) -> JSONResponse:
+    if not isinstance(exc, RequestValidationError):
+        return await unhandled_exception_handler(request, exc)
     return JSONResponse(
         status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
         content=ErrorResponse(
@@ -128,8 +132,10 @@ async def validation_exception_handler(
 
 
 async def pydantic_validation_exception_handler(
-    request: Request, exc: PydanticValidationError
+    request: Request, exc: Exception
 ) -> JSONResponse:
+    if not isinstance(exc, PydanticValidationError):
+        return await unhandled_exception_handler(request, exc)
     return JSONResponse(
         status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
         content=ErrorResponse(

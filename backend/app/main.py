@@ -1,10 +1,9 @@
 import uuid
+from contextlib import asynccontextmanager
 
 from fastapi import FastAPI, HTTPException, Request
-from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import FileResponse
-from fastapi.staticfiles import StaticFiles
 from fastapi.exceptions import RequestValidationError
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import ValidationError as PydanticValidationError
 
 from app.api.routes import (
@@ -18,7 +17,6 @@ from app.api.routes import (
 from app.core.config import settings
 from app.core.exceptions import (
     AppError,
-    ExternalServiceError,
     app_error_handler,
     http_exception_handler,
     pydantic_validation_exception_handler,
@@ -27,22 +25,27 @@ from app.core.exceptions import (
 )
 from app.db.session import SessionLocal
 from app.services.seed import try_seed_defaults
-from app.services.upload import get_uploaded_file
-
-app = FastAPI(title=settings.app_name, debug=settings.debug)
 
 
-@app.on_event("startup")
-def seed_lookups() -> None:
+@asynccontextmanager
+async def lifespan(_app: FastAPI):
     db = SessionLocal()
     try:
         try_seed_defaults(db)
     finally:
         db.close()
+    yield
+
+
+app = FastAPI(title=settings.app_name, debug=settings.debug, lifespan=lifespan)
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[settings.frontend_url, "http://localhost:5173", "http://127.0.0.1:5173"],
+    allow_origins=[
+        settings.frontend_url,
+        "http://localhost:5173",
+        "http://127.0.0.1:5173",
+    ],
     allow_credentials=True,
     allow_methods=["GET", "POST", "PATCH", "DELETE", "OPTIONS"],
     allow_headers=["*"],
@@ -60,7 +63,6 @@ async def add_request_id(request: Request, call_next):
 
 
 app.add_exception_handler(AppError, app_error_handler)
-app.add_exception_handler(ExternalServiceError, app_error_handler)
 app.add_exception_handler(HTTPException, http_exception_handler)
 app.add_exception_handler(RequestValidationError, validation_exception_handler)
 app.add_exception_handler(PydanticValidationError, pydantic_validation_exception_handler)
@@ -72,21 +74,6 @@ app.include_router(hazards_router.router)
 app.include_router(analytics_router.router)
 app.include_router(ai_router.router)
 app.include_router(uploads_router.router)
-
-# Serve uploaded photographs statically.
-upload_dir = settings.upload_dir
-import os
-
-os.makedirs(upload_dir, exist_ok=True)
-app.mount("/uploads", StaticFiles(directory=upload_dir), name="uploads")
-
-
-@app.get("/uploads/{object_name}")
-async def get_upload(object_name: str):
-    path = get_uploaded_file(object_name)
-    if path is None:
-        raise HTTPException(status_code=404, detail="Uploaded file not found")
-    return FileResponse(path)
 
 
 @app.get("/health")
