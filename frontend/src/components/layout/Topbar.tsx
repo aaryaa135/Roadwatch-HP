@@ -90,7 +90,7 @@ export function Topbar({ onOpenMobile }: { onOpenMobile: () => void }) {
   };
 
   return (
-    <header className="sticky top-0 z-30 border-b border-line bg-white/95 backdrop-blur">
+    <header className="sticky top-0 z-30 border-b border-line bg-white">
       <div className="flex h-16 items-center gap-3 px-4 sm:px-6 lg:px-8">
         <button
           type="button"
@@ -117,7 +117,7 @@ export function Topbar({ onOpenMobile }: { onOpenMobile: () => void }) {
             ) : null}
             <span className="truncate text-ink/70">{title}</span>
           </div>
-          <h1 className="truncate text-lg font-semibold tracking-tight text-ink">
+          <h1 className="truncate text-base font-semibold tracking-tight text-ink">
             {title}
           </h1>
         </div>
@@ -145,7 +145,7 @@ export function Topbar({ onOpenMobile }: { onOpenMobile: () => void }) {
             )}
           </button>
           {notificationsOpen && (
-            <div className="absolute right-0 mt-2 w-72 animate-fade-in rounded-xl border border-line bg-white p-2 shadow-float">
+            <div className="absolute right-0 mt-2 w-72 animate-fade-in rounded-lg border border-line bg-white p-2 shadow-float">
               <div className="flex items-center justify-between px-2 py-1.5">
                 <p className="text-xs font-semibold uppercase tracking-wider text-muted">
                   Notifications
@@ -194,7 +194,7 @@ export function Topbar({ onOpenMobile }: { onOpenMobile: () => void }) {
             aria-label="Open profile menu"
             aria-expanded={profileOpen}
           >
-            <span className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-brand-500 to-brand-700 text-[11px] font-bold text-white">
+            <span className="flex h-8 w-8 items-center justify-center rounded-full bg-brand-700 text-[11px] font-semibold text-white">
               {user ? initials(user.full_name) : "RW"}
             </span>
             <span className="hidden max-w-[120px] truncate text-xs font-semibold text-ink md:block">
@@ -202,7 +202,7 @@ export function Topbar({ onOpenMobile }: { onOpenMobile: () => void }) {
             </span>
           </button>
           {profileOpen && (
-            <div className="absolute right-0 mt-2 w-60 animate-fade-in rounded-xl border border-line bg-white p-2 shadow-float">
+            <div className="absolute right-0 mt-2 w-60 animate-fade-in rounded-lg border border-line bg-white p-2 shadow-float">
               <div className="border-b border-line px-2 pb-2.5 pt-1">
                 <p className="truncate text-sm font-semibold text-ink">
                   {user?.full_name}

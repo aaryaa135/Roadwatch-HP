@@ -62,10 +62,10 @@ function SidebarLink({
       title={collapsed ? item.label : undefined}
       className={({ isActive }) =>
         cn(
-          "group relative flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors",
+          "group relative flex items-center gap-3 rounded-md px-3 py-2.5 text-sm font-medium transition-colors",
           isActive
-            ? "bg-gradient-to-r from-brand-600 to-brand-500 text-white shadow-sm"
-            : "text-white/60 hover:bg-white/5 hover:text-white",
+            ? "bg-white/[0.08] text-white"
+            : "text-white/55 hover:bg-white/[0.06] hover:text-white",
           collapsed && "justify-center px-0"
         )
       }
@@ -73,7 +73,7 @@ function SidebarLink({
       {({ isActive }) => (
         <>
           {isActive && (
-            <span className="absolute left-0 top-1/2 h-5 w-0.5 -translate-y-1/2 rounded-full bg-amber-400" />
+            <span className="absolute left-0 top-1/2 h-5 w-0.5 -translate-y-1/2 rounded-full bg-brand-400" />
           )}
           <Icon className="h-[18px] w-[18px] shrink-0" aria-hidden="true" />
           {!collapsed && <span className="truncate">{item.label}</span>}
@@ -94,7 +94,7 @@ function SectionLabel({
     return <div className="mx-auto my-3 h-px w-6 bg-white/10" aria-hidden="true" />;
   }
   return (
-    <p className="mb-2 mt-5 px-3 text-[10px] font-semibold uppercase tracking-[0.16em] text-brand-300/70">
+    <p className="mb-2 mt-5 px-3 text-[10px] font-semibold uppercase tracking-[0.14em] text-white/35">
       {children}
     </p>
   );
@@ -182,7 +182,7 @@ export function Sidebar({
             onClick={handleLogout}
             title={collapsed ? "Logout" : undefined}
             className={cn(
-              "flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-white/60 transition-colors hover:bg-white/5 hover:text-white",
+              "flex w-full items-center gap-3 rounded-md px-3 py-2.5 text-sm font-medium text-white/55 transition-colors hover:bg-white/[0.06] hover:text-white",
               collapsed && "justify-center px-0"
             )}
           >
@@ -199,7 +199,7 @@ export function Sidebar({
             collapsed && "justify-center"
           )}
         >
-          <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-brand-400 to-brand-700 text-[11px] font-bold text-white">
+          <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-brand-700 text-[11px] font-semibold text-white">
             {user ? initials(user.full_name) : "RW"}
           </div>
           {!collapsed && (

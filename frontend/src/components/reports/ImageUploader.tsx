@@ -120,13 +120,13 @@ export function ImageUploader({
             setDragging(false);
             handleFiles(event.dataTransfer.files);
           }}
-          className={`flex flex-col items-center justify-center rounded-xl border-2 border-dashed px-4 py-7 text-center transition-colors ${
+          className={`flex flex-col items-center justify-center rounded-lg border border-dashed px-4 py-7 text-center transition-colors ${
             dragging
               ? "border-brand-500 bg-brand-50"
               : "border-line bg-surface/60 hover:border-brand-300"
           }`}
         >
-          <div className="flex h-10 w-10 items-center justify-center rounded-full bg-white text-brand-700 shadow-sm">
+          <div className="flex h-10 w-10 items-center justify-center rounded-md bg-white text-brand-700">
             {uploading ? (
               <Loader2 className="h-5 w-5 animate-spin" />
             ) : (
@@ -145,7 +145,7 @@ export function ImageUploader({
             type="button"
             onClick={pickFiles}
             disabled={uploading}
-            className="mt-3 inline-flex items-center gap-1.5 rounded-lg border border-line bg-white px-3 py-1.5 text-xs font-semibold text-ink hover:bg-surface disabled:opacity-50"
+            className="mt-3 inline-flex items-center gap-1.5 rounded-md border border-line bg-white px-3 py-1.5 text-xs font-medium text-ink hover:bg-surface disabled:opacity-50"
           >
             <ImagePlus className="h-3.5 w-3.5" />
             Choose file

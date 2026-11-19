@@ -124,7 +124,7 @@ function HazardPopup({ report }: { report: HazardReport }) {
       </div>
       <Link
         to={`/app/reports/${report.id}`}
-        className="mt-2.5 block rounded-md bg-brand-700 px-2 py-1.5 text-center text-xs font-semibold text-white hover:bg-brand-800"
+        className="mt-2.5 block rounded-md bg-brand-700 px-2 py-1.5 text-center text-xs font-medium text-white hover:bg-brand-800"
       >
         View details
       </Link>

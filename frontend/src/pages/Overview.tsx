@@ -44,10 +44,10 @@ import {
 import { formatDate, severityRank } from "../utils/format";
 
 const chartTooltipStyle = {
-  borderRadius: 10,
-  border: "1px solid #e2e8f0",
+  borderRadius: 8,
+  border: "1px solid #e1e4e1",
   fontSize: 12,
-  boxShadow: "0 8px 24px rgba(15, 23, 42, 0.08)",
+  boxShadow: "0 8px 24px rgba(20, 28, 23, 0.08)",
 };
 
 function monthLabel(value: string) {
@@ -204,20 +204,20 @@ export function Overview() {
                   <AreaChart data={monthlyData} margin={{ left: -18, right: 8, top: 8 }}>
                     <defs>
                       <linearGradient id="reportsFill" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="5%" stopColor="#15803d" stopOpacity={0.28} />
-                        <stop offset="95%" stopColor="#15803d" stopOpacity={0.02} />
+                        <stop offset="5%" stopColor="#356a4d" stopOpacity={0.28} />
+                        <stop offset="95%" stopColor="#356a4d" stopOpacity={0.02} />
                       </linearGradient>
                     </defs>
-                    <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" vertical={false} />
+                    <CartesianGrid strokeDasharray="3 3" stroke="#e1e4e1" vertical={false} />
                     <XAxis
                       dataKey="month"
-                      tick={{ fontSize: 11, fill: "#64748b" }}
+                      tick={{ fontSize: 11, fill: "#5f6a63" }}
                       axisLine={false}
                       tickLine={false}
                     />
                     <YAxis
                       allowDecimals={false}
-                      tick={{ fontSize: 11, fill: "#64748b" }}
+                      tick={{ fontSize: 11, fill: "#5f6a63" }}
                       axisLine={false}
                       tickLine={false}
                     />
@@ -225,7 +225,7 @@ export function Overview() {
                     <Area
                       type="monotone"
                       dataKey="reports"
-                      stroke="#15803d"
+                      stroke="#356a4d"
                       strokeWidth={2.5}
                       fill="url(#reportsFill)"
                     />
@@ -318,11 +318,11 @@ export function Overview() {
                     layout="vertical"
                     margin={{ left: 8, right: 16, top: 4, bottom: 4 }}
                   >
-                    <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" horizontal={false} />
+                    <CartesianGrid strokeDasharray="3 3" stroke="#e1e4e1" horizontal={false} />
                     <XAxis
                       type="number"
                       allowDecimals={false}
-                      tick={{ fontSize: 11, fill: "#64748b" }}
+                      tick={{ fontSize: 11, fill: "#5f6a63" }}
                       axisLine={false}
                       tickLine={false}
                     />
@@ -330,12 +330,12 @@ export function Overview() {
                       type="category"
                       dataKey="name"
                       width={112}
-                      tick={{ fontSize: 11, fill: "#475569" }}
+                      tick={{ fontSize: 11, fill: "#5f6a63" }}
                       axisLine={false}
                       tickLine={false}
                     />
                     <Tooltip contentStyle={chartTooltipStyle} />
-                    <Bar dataKey="value" fill="#15803d" radius={[0, 6, 6, 0]} barSize={14} />
+                    <Bar dataKey="value" fill="#356a4d" radius={[0, 4, 4, 0]} barSize={14} />
                   </BarChart>
                 </ResponsiveContainer>
               </div>
@@ -375,7 +375,7 @@ export function Overview() {
                       <span className="truncate text-ink">{item.district}</span>
                       <span className="font-semibold text-muted">{item.count}</span>
                     </div>
-                    <div className="h-1.5 overflow-hidden rounded-full bg-surface">
+                    <div className="h-1 overflow-hidden rounded-full bg-line/70">
                       <div
                         className="h-full rounded-full bg-brand-600"
                         style={{ width: `${(item.count / districtMax) * 100}%` }}

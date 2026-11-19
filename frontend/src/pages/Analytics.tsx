@@ -40,17 +40,17 @@ import {
 import { formatConfidence } from "../utils/format";
 
 const tooltipStyle = {
-  borderRadius: 10,
-  border: "1px solid #e2e8f0",
+  borderRadius: 8,
+  border: "1px solid #e1e4e1",
   fontSize: 12,
-  boxShadow: "0 8px 24px rgba(15, 23, 42, 0.08)",
+  boxShadow: "0 8px 24px rgba(20, 28, 23, 0.08)",
 };
 
 const statusColors: Record<string, string> = {
-  pending: "#d97706",
-  verified: "#15803d",
-  rejected: "#dc2626",
-  resolved: "#0284c7",
+  pending: "#b45309",
+  verified: "#356a4d",
+  rejected: "#b91c1c",
+  resolved: "#0369a1",
 };
 
 function monthLabel(value: string) {
@@ -277,20 +277,20 @@ export function Analytics() {
                   <AreaChart data={monthlyData} margin={{ left: -18, right: 8, top: 8 }}>
                     <defs>
                       <linearGradient id="analyticsFill" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="5%" stopColor="#15803d" stopOpacity={0.28} />
-                        <stop offset="95%" stopColor="#15803d" stopOpacity={0.02} />
+                        <stop offset="5%" stopColor="#356a4d" stopOpacity={0.28} />
+                        <stop offset="95%" stopColor="#356a4d" stopOpacity={0.02} />
                       </linearGradient>
                     </defs>
-                    <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" vertical={false} />
+                    <CartesianGrid strokeDasharray="3 3" stroke="#e1e4e1" vertical={false} />
                     <XAxis
                       dataKey="month"
-                      tick={{ fontSize: 11, fill: "#64748b" }}
+                      tick={{ fontSize: 11, fill: "#5f6a63" }}
                       axisLine={false}
                       tickLine={false}
                     />
                     <YAxis
                       allowDecimals={false}
-                      tick={{ fontSize: 11, fill: "#64748b" }}
+                      tick={{ fontSize: 11, fill: "#5f6a63" }}
                       axisLine={false}
                       tickLine={false}
                     />
@@ -298,7 +298,7 @@ export function Analytics() {
                     <Area
                       type="monotone"
                       dataKey="reports"
-                      stroke="#15803d"
+                      stroke="#356a4d"
                       strokeWidth={2.5}
                       fill="url(#analyticsFill)"
                     />
@@ -391,11 +391,11 @@ export function Analytics() {
                     layout="vertical"
                     margin={{ left: 8, right: 20, top: 4, bottom: 4 }}
                   >
-                    <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" horizontal={false} />
+                    <CartesianGrid strokeDasharray="3 3" stroke="#e1e4e1" horizontal={false} />
                     <XAxis
                       type="number"
                       allowDecimals={false}
-                      tick={{ fontSize: 11, fill: "#64748b" }}
+                      tick={{ fontSize: 11, fill: "#5f6a63" }}
                       axisLine={false}
                       tickLine={false}
                     />
@@ -403,12 +403,12 @@ export function Analytics() {
                       type="category"
                       dataKey="name"
                       width={120}
-                      tick={{ fontSize: 11, fill: "#475569" }}
+                      tick={{ fontSize: 11, fill: "#5f6a63" }}
                       axisLine={false}
                       tickLine={false}
                     />
                     <Tooltip contentStyle={tooltipStyle} />
-                    <Bar dataKey="value" fill="#15803d" radius={[0, 6, 6, 0]} barSize={16} />
+                    <Bar dataKey="value" fill="#356a4d" radius={[0, 4, 4, 0]} barSize={16} />
                   </BarChart>
                 </ResponsiveContainer>
               </div>
@@ -451,7 +451,7 @@ export function Analytics() {
                           </span>
                         </span>
                       </div>
-                      <div className="h-1.5 overflow-hidden rounded-full bg-surface">
+                      <div className="h-1.5 overflow-hidden rounded-full bg-line/70">
                         <div
                           className="h-full rounded-full"
                           style={{
@@ -506,7 +506,7 @@ export function Analytics() {
                         <td className="text-muted">{item.count}</td>
                         <td>
                           <div className="flex items-center gap-2">
-                            <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-surface">
+                            <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-line/70">
                               <div
                                 className="h-full rounded-full bg-brand-600"
                                 style={{
@@ -557,7 +557,7 @@ export function Analytics() {
                       {aiInsight.coverage}%
                     </span>
                   </div>
-                  <div className="mt-1.5 h-1.5 overflow-hidden rounded-full bg-surface">
+                  <div className="mt-1.5 h-1.5 overflow-hidden rounded-full bg-line/70">
                     <div
                       className="h-full rounded-full bg-brand-600"
                       style={{ width: `${aiInsight.coverage}%` }}
@@ -567,7 +567,7 @@ export function Analytics() {
                 <div className="grid grid-cols-2 gap-3">
                   <div className="rounded-lg border border-line bg-surface/50 p-3">
                     <p className="text-[11px] text-muted">Average confidence</p>
-                    <p className="mt-1 text-lg font-bold text-ink">
+                    <p className="mt-1 text-lg font-semibold text-ink">
                       {aiInsight.average === null
                         ? "—"
                         : formatConfidence(aiInsight.average)}
@@ -575,7 +575,7 @@ export function Analytics() {
                   </div>
                   <div className="rounded-lg border border-line bg-surface/50 p-3">
                     <p className="text-[11px] text-muted">High confidence</p>
-                    <p className="mt-1 text-lg font-bold text-ink">
+                    <p className="mt-1 text-lg font-semibold text-ink">
                       {aiInsight.highConfidence}
                     </p>
                   </div>

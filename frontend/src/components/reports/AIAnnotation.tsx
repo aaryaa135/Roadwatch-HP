@@ -7,9 +7,9 @@ export function AIAnnotation({ result }: { result: AIInferenceResult }) {
   const bounded = Math.max(0, Math.min(100, Math.round(confidence)));
 
   return (
-    <div className="rounded-lg border border-brand-200 bg-brand-50/60 p-4">
+    <div className="rounded-md border border-brand-200 bg-brand-50/60 p-4">
       <div className="flex items-start gap-2">
-        <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-white text-brand-700 shadow-sm">
+        <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md bg-white text-brand-700">
           <Sparkles className="h-4 w-4" />
         </div>
         <div className="min-w-0 flex-1">
@@ -30,21 +30,21 @@ export function AIAnnotation({ result }: { result: AIInferenceResult }) {
             {formatConfidence(result.confidence)}
           </span>
         </div>
-        <div className="h-1.5 overflow-hidden rounded-full bg-white">
+        <div className="h-1 overflow-hidden rounded-full bg-white">
           <div
             className="h-full rounded-full bg-brand-600"
             style={{ width: `${bounded}%` }}
           />
         </div>
         <div className="flex flex-wrap gap-1.5 pt-0.5 text-[11px] text-muted">
-          <span className="rounded-full border border-brand-200 bg-white px-2 py-0.5">
+          <span className="rounded border border-brand-200 bg-white px-2 py-0.5">
             {result.model_type.replace(/_/g, " ")}
           </span>
-          <span className="rounded-full border border-brand-200 bg-white px-2 py-0.5">
+          <span className="rounded border border-brand-200 bg-white px-2 py-0.5">
             {result.model_loaded ? "Model loaded" : "Model not loaded"}
           </span>
           {result.predictions.length > 0 && (
-            <span className="rounded-full border border-brand-200 bg-white px-2 py-0.5">
+            <span className="rounded border border-brand-200 bg-white px-2 py-0.5">
               {result.predictions.length} prediction
               {result.predictions.length === 1 ? "" : "s"}
             </span>

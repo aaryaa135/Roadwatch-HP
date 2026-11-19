@@ -52,7 +52,7 @@ export function Modal({
         aria-labelledby="modal-title"
         aria-describedby={description ? "modal-description" : undefined}
         className={cn(
-          "animate-fade-in max-h-[92vh] w-full overflow-y-auto rounded-t-2xl bg-white shadow-float sm:rounded-2xl",
+          "animate-fade-in max-h-[92vh] w-full overflow-y-auto rounded-t-xl bg-white shadow-float sm:rounded-lg",
           size === "sm" && "sm:max-w-sm",
           size === "md" && "sm:max-w-lg",
           size === "lg" && "sm:max-w-2xl"

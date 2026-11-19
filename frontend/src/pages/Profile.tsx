@@ -167,15 +167,15 @@ export function Profile() {
           <Card>
             <CardBody>
               <div className="flex items-center gap-4">
-                <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-brand-700 text-xl font-bold text-white">
+                <div className="flex h-16 w-16 items-center justify-center rounded-xl bg-brand-700 text-xl font-semibold text-white">
                   {initials(user.full_name)}
                 </div>
                 <div className="min-w-0">
-                  <h2 className="truncate text-lg font-bold text-ink">
+                  <h2 className="truncate text-lg font-semibold text-ink">
                     {user.full_name}
                   </h2>
                   <p className="truncate text-xs text-muted">{user.email}</p>
-                  <span className="mt-1.5 inline-flex items-center gap-1 rounded-full border border-line bg-surface px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-muted">
+                  <span className="mt-1.5 inline-flex items-center gap-1 rounded border border-line bg-surface px-2 py-0.5 text-[10px] font-medium uppercase tracking-wide text-muted">
                     {user.role === "admin" ? (
                       <ShieldCheck className="h-3 w-3" />
                     ) : (

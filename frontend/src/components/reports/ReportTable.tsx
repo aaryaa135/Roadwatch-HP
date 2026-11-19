@@ -89,7 +89,7 @@ export function ReportTable({
               <td className="text-right">
                 <Link
                   to={`/app/reports/${report.id}`}
-                  className="inline-flex items-center gap-1 rounded-md px-2 py-1 text-xs font-semibold text-brand-700 hover:bg-brand-50"
+                  className="inline-flex items-center gap-1 rounded-md px-2 py-1 text-xs font-medium text-brand-700 hover:bg-surface"
                 >
                   View
                   <ArrowUpRight className="h-3.5 w-3.5" />

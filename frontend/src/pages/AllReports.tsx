@@ -137,12 +137,12 @@ export function AllReports() {
               ))}
             </Select>
           </div>
-          <div className="flex rounded-lg border border-line bg-white p-0.5">
+          <div className="flex rounded-md border border-line bg-white p-0.5">
             <button
               type="button"
               onClick={() => setView("list")}
               className={cn(
-                "inline-flex h-9 items-center gap-1.5 rounded-md px-3 text-xs font-semibold",
+                "inline-flex h-9 items-center gap-1.5 rounded-md px-3 text-xs font-medium",
                 view === "list" ? "bg-charcoal-900 text-white" : "text-muted hover:text-ink"
               )}
               aria-pressed={view === "list"}
@@ -154,7 +154,7 @@ export function AllReports() {
               type="button"
               onClick={() => setView("map")}
               className={cn(
-                "inline-flex h-9 items-center gap-1.5 rounded-md px-3 text-xs font-semibold",
+                "inline-flex h-9 items-center gap-1.5 rounded-md px-3 text-xs font-medium",
                 view === "map" ? "bg-charcoal-900 text-white" : "text-muted hover:text-ink"
               )}
               aria-pressed={view === "map"}
@@ -183,7 +183,7 @@ export function AllReports() {
             <button
               type="button"
               onClick={resetAll}
-              className="font-semibold text-brand-700 hover:text-brand-800"
+              className="font-medium text-brand-700 hover:text-brand-800"
             >
               Clear all filters
             </button>

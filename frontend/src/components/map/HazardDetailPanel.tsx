@@ -94,7 +94,7 @@ export function HazardDetailPanel({
         </p>
         <Link
           to={`/app/reports/${report.id}`}
-          className="flex items-center justify-center gap-1.5 rounded-lg bg-brand-700 px-3 py-2 text-xs font-semibold text-white hover:bg-brand-800"
+          className="flex items-center justify-center gap-1.5 rounded-md bg-brand-700 px-3 py-2 text-xs font-medium text-white hover:bg-brand-800"
         >
           Open full report
           <ArrowUpRight className="h-3.5 w-3.5" />

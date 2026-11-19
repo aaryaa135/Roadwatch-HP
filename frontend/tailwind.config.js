@@ -32,10 +32,10 @@ export default {
           900: "#1b211f",
           950: "#141917",
         },
-        surface: "#f6f7f6",
-        line: "#e3e6e4",
-        ink: "#1d2421",
-        muted: "#68736d",
+        surface: "#f4f5f3",
+        line: "#e1e4e1",
+        ink: "#1f2a24",
+        muted: "#5f6a63",
         severity: {
           low: "#2f855a",
           medium: "#d97706",
@@ -44,11 +44,11 @@ export default {
         },
       },
       borderRadius: {
-        card: "0.75rem",
+        card: "0.5rem",
       },
       boxShadow: {
-        card: "0 1px 2px rgba(16, 24, 20, 0.04), 0 8px 24px -18px rgba(16, 24, 20, 0.25)",
-        float: "0 12px 40px -16px rgba(16, 24, 20, 0.35)",
+        card: "0 1px 2px rgba(20, 28, 23, 0.04)",
+        float: "0 18px 40px -28px rgba(20, 28, 23, 0.4)",
       },
       keyframes: {
         "fade-in": {

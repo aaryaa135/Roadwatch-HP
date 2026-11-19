@@ -279,7 +279,7 @@ export function ReportHazard() {
             <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-emerald-50 text-emerald-700">
               <CheckCircle2 className="h-7 w-7" />
             </div>
-            <h2 className="mt-4 text-lg font-bold text-ink">{created.title}</h2>
+            <h2 className="mt-4 text-lg font-semibold text-ink">{created.title}</h2>
             <p className="mt-1 text-sm text-muted">
               Reference {created.id.slice(0, 8).toUpperCase()} ·{" "}
               {created.district ?? "District not recorded"}

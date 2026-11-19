@@ -39,7 +39,7 @@ export function PublicLayout() {
       <a href="#main-content" className="rw-sr-only">
         Skip to main content
       </a>
-      <header className="sticky top-0 z-40 border-b border-line/80 bg-white/95 backdrop-blur">
+      <header className="sticky top-0 z-40 border-b border-line bg-white">
         <div className="rw-gradient-bar h-1 w-full" aria-hidden="true" />
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
           <Link to="/" aria-label="RoadWatch HP home">
@@ -53,7 +53,7 @@ export function PublicLayout() {
                   key={link.to}
                   href={link.to}
                   onClick={(event) => handleSectionClick(event, link.to)}
-                  className="rounded-md px-3 py-2 text-sm font-medium text-muted transition-colors hover:bg-brand-50 hover:text-brand-700"
+                  className="rounded-md px-3 py-2 text-sm font-medium text-muted transition-colors hover:bg-surface hover:text-ink"
                 >
                   {link.label}
                 </a>
@@ -66,8 +66,8 @@ export function PublicLayout() {
                     cn(
                       "rounded-md px-3 py-2 text-sm font-medium transition-colors",
                       isActive
-                        ? "bg-brand-50 text-brand-700"
-                        : "text-muted hover:bg-brand-50 hover:text-brand-700"
+                        ? "bg-surface text-ink"
+                        : "text-muted hover:bg-surface hover:text-ink"
                     )
                   }
                 >
@@ -118,7 +118,7 @@ export function PublicLayout() {
                     key={link.to}
                     href={link.to}
                     onClick={(event) => handleSectionClick(event, link.to)}
-                    className="block rounded-lg px-3 py-2.5 text-sm font-medium text-muted hover:bg-brand-50 hover:text-brand-700"
+                    className="block rounded-lg px-3 py-2.5 text-sm font-medium text-muted hover:bg-surface hover:text-ink"
                   >
                     {link.label}
                   </a>
@@ -132,8 +132,8 @@ export function PublicLayout() {
                       cn(
                         "block rounded-lg px-3 py-2.5 text-sm font-medium",
                         isActive
-                          ? "bg-brand-50 text-brand-700"
-                          : "text-muted hover:bg-brand-50 hover:text-brand-700"
+                          ? "bg-surface text-ink"
+                          : "text-muted hover:bg-surface hover:text-ink"
                       )
                     }
                   >

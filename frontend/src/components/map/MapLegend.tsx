@@ -3,7 +3,7 @@ import { SEVERITIES, STATUSES } from "../../utils/constants";
 export function MapLegend() {
   return (
     <div className="rw-card p-4">
-      <h3 className="text-xs font-semibold uppercase tracking-wider text-muted">
+      <h3 className="text-[11px] font-semibold uppercase tracking-[0.08em] text-muted">
         Map legend
       </h3>
       <div className="mt-3 space-y-4">
@@ -13,7 +13,7 @@ export function MapLegend() {
             {SEVERITIES.map((severity) => (
               <div key={severity.code} className="flex items-center gap-2 text-xs text-muted">
                 <span
-                  className="h-3 w-3 rounded-full border-2 border-white shadow"
+                  className="h-3 w-3 rounded-full border border-white"
                   style={{ backgroundColor: severity.color }}
                   aria-hidden="true"
                 />

@@ -26,13 +26,13 @@ export function CardHeader({
       <div className="min-w-0">
         <div className="flex items-center gap-2">
           <span
-            className="h-4 w-1 shrink-0 rounded-full bg-gradient-to-b from-brand-500 to-amber-400"
+            className="h-3.5 w-0.5 shrink-0 rounded-full bg-brand-600"
             aria-hidden="true"
           />
           <h2 className="text-sm font-semibold text-ink">{title}</h2>
         </div>
         {description && (
-          <p className="mt-0.5 pl-3 text-xs text-muted">{description}</p>
+          <p className="mt-1 pl-2.5 text-xs leading-relaxed text-muted">{description}</p>
         )}
       </div>
       {action && <div className="shrink-0">{action}</div>}

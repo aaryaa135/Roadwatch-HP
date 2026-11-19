@@ -88,7 +88,7 @@ export function ToastProvider({ children }: { children: ReactNode }) {
               key={toast.id}
               role={toast.kind === "error" ? "alert" : "status"}
               className={cn(
-                "pointer-events-auto flex animate-fade-in items-start gap-3 rounded-xl border p-4 shadow-float",
+                "pointer-events-auto flex animate-fade-in items-start gap-3 rounded-lg border p-4 shadow-float",
                 styles[toast.kind]
               )}
             >

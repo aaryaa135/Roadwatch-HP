@@ -10,15 +10,10 @@
   body {
     @apply bg-surface text-ink antialiased;
     font-feature-settings: "cv02", "cv03", "cv04", "cv11";
-    background-image: radial-gradient(
-      1200px 620px at 100% -10%,
-      rgba(70, 128, 95, 0.07),
-      transparent 60%
-    );
   }
 
   :focus-visible {
-    @apply outline-none ring-2 ring-brand-500 ring-offset-2 ring-offset-white;
+    @apply outline-none ring-2 ring-brand-600 ring-offset-2 ring-offset-white;
   }
 
   ::selection {
@@ -40,37 +35,27 @@
 
 @layer components {
   .rw-card {
-    @apply rounded-card border border-line bg-white shadow-card transition duration-200;
+    @apply rounded-card border border-line bg-white shadow-card transition-colors duration-150;
   }
 
   .rw-card-hover {
-    @apply hover:-translate-y-0.5 hover:border-brand-200 hover:shadow-float;
+    @apply hover:border-brand-300;
   }
 
   .rw-gradient-bar {
-    background-image: linear-gradient(
-      90deg,
-      #2c5540 0%,
-      #46805f 45%,
-      #669d7d 70%,
-      #d97706 100%
-    );
+    background-color: #356a4d;
   }
 
   .rw-glow {
-    background-image: radial-gradient(
-      60% 60% at 50% 0%,
-      rgba(70, 128, 95, 0.16),
-      transparent 70%
-    );
+    background-image: none;
   }
 
   .rw-label {
-    @apply mb-1.5 block text-sm font-medium text-ink;
+    @apply mb-1.5 block text-sm font-medium text-ink/80;
   }
 
   .rw-input {
-    @apply block w-full rounded-lg border border-line bg-white px-3 py-2.5 text-sm text-ink placeholder:text-muted/70 transition-colors focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-100 disabled:cursor-not-allowed disabled:bg-surface;
+    @apply block w-full rounded-md border border-line bg-white px-3 py-2.5 text-sm text-ink placeholder:text-muted/60 transition-colors focus:border-brand-600 focus:outline-none focus:ring-2 focus:ring-brand-100 disabled:cursor-not-allowed disabled:bg-surface;
   }
 
   .rw-select {
@@ -87,15 +72,15 @@
   }
 
   .rw-table thead th {
-    @apply whitespace-nowrap border-b border-line bg-surface px-4 py-3 text-[11px] font-semibold uppercase tracking-wider text-muted;
+    @apply whitespace-nowrap border-b border-line bg-surface/60 px-4 py-2.5 text-[10px] font-semibold uppercase tracking-[0.08em] text-muted;
   }
 
   .rw-table tbody td {
-    @apply border-b border-line/70 px-4 py-3.5 align-middle text-ink;
+    @apply border-b border-line/80 px-4 py-3 align-middle text-[13px] text-ink;
   }
 
   .rw-table tbody tr {
-    @apply transition-colors hover:bg-brand-50/40;
+    @apply transition-colors hover:bg-surface/70;
   }
 
   .rw-skeleton {
@@ -120,7 +105,7 @@
 /* Leaflet integration */
 .leaflet-container {
   font-family: inherit;
-  background: #e8ece9;
+  background: #e9ece8;
 }
 
 .leaflet-div-icon {
@@ -129,16 +114,16 @@
 }
 
 .leaflet-control-zoom a {
-  color: #1d2421 !important;
+  color: #1f2a24 !important;
 }
 
 .leaflet-popup-content-wrapper {
-  border-radius: 10px;
-  box-shadow: 0 12px 40px -16px rgba(16, 24, 20, 0.35);
+  border-radius: 8px;
+  box-shadow: 0 12px 32px -20px rgba(20, 28, 23, 0.4);
 }
 
 .leaflet-popup-content {
-  margin: 12px 14px;
+  margin: 10px 12px;
   font-size: 13px;
 }
 
@@ -150,7 +135,7 @@
   height: 100%;
   border-radius: 999px;
   border: 2px solid #ffffff;
-  box-shadow: 0 2px 8px rgba(16, 24, 20, 0.35);
+  box-shadow: 0 2px 6px rgba(20, 28, 23, 0.3);
   color: #ffffff;
   font-size: 11px;
   font-weight: 700;
@@ -187,12 +172,12 @@
   align-items: center;
   justify-content: center;
   border-radius: 999px;
-  background: #1b211f;
+  background: #2f5d45;
   color: #ffffff;
-  border: 3px solid rgba(255, 255, 255, 0.9);
-  box-shadow: 0 6px 18px rgba(16, 24, 20, 0.3);
+  border: 2px solid rgba(255, 255, 255, 0.95);
+  box-shadow: 0 4px 12px rgba(20, 28, 23, 0.28);
   font-size: 12px;
-  font-weight: 700;
+  font-weight: 600;
 }
 
 .marker-cluster-small,
@@ -216,9 +201,9 @@
   height: 24px;
   border-radius: 50% 50% 50% 0;
   transform: rotate(-45deg);
-  background: #2c5540;
+  background: #356a4d;
   border: 2px solid #ffffff;
-  box-shadow: 0 4px 12px rgba(16, 24, 20, 0.35);
+  box-shadow: 0 3px 10px rgba(20, 28, 23, 0.3);
 }
 
 .rw-pin__dot {

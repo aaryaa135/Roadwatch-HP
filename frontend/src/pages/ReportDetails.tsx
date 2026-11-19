@@ -353,7 +353,7 @@ export function ReportDetails() {
                   href={openMapUrl}
                   target="_blank"
                   rel="noreferrer"
-                  className="inline-flex items-center gap-1 text-xs font-semibold text-brand-700 hover:text-brand-800"
+                  className="inline-flex items-center gap-1 text-xs font-medium text-brand-700 hover:text-brand-800"
                 >
                   Open in OpenStreetMap
                   <ExternalLink className="h-3.5 w-3.5" />
@@ -392,7 +392,7 @@ export function ReportDetails() {
                         <p className="text-xs font-semibold text-ink">
                           {detection.model_type.replace(/_/g, " ")}
                         </p>
-                        <span className="rounded-full border border-line bg-white px-2 py-0.5 text-[11px] font-semibold text-ink">
+                        <span className="rounded border border-line bg-white px-2 py-0.5 text-[11px] font-medium text-ink">
                           {formatConfidence(detection.confidence)} confidence
                         </span>
                       </div>
@@ -405,7 +405,7 @@ export function ReportDetails() {
                           href={detection.mask_url}
                           target="_blank"
                           rel="noreferrer"
-                          className="mt-1.5 inline-flex items-center gap-1 text-[11px] font-semibold text-brand-700 hover:text-brand-800"
+                          className="mt-1.5 inline-flex items-center gap-1 text-[11px] font-medium text-brand-700 hover:text-brand-800"
                         >
                           View segmentation mask
                           <ExternalLink className="h-3 w-3" />
@@ -438,7 +438,7 @@ export function ReportDetails() {
               description="Same-category reports within 500 metres."
               action={
                 duplicates.length > 0 ? (
-                  <span className="rounded-full bg-amber-50 px-2 py-0.5 text-[11px] font-semibold text-amber-800">
+                  <span className="rounded bg-amber-50 px-2 py-0.5 text-[11px] font-medium text-amber-800">
                     {duplicates.length} nearby
                   </span>
                 ) : undefined

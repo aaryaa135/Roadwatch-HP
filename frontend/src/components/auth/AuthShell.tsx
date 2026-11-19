@@ -18,7 +18,7 @@ export function AuthShell({
   return (
     <div className="grid min-h-screen bg-surface lg:grid-cols-[1.05fr_1fr]">
       <div className="relative hidden overflow-hidden bg-charcoal-900 p-10 lg:flex lg:flex-col lg:justify-between">
-        <div className="absolute inset-0 opacity-30">
+        <div className="absolute inset-0 opacity-20">
           <svg viewBox="0 0 600 800" className="h-full w-full" aria-hidden="true">
             <defs>
               <pattern
@@ -55,17 +55,15 @@ export function AuthShell({
             <circle cx="320" cy="420" r="5" fill="#ffffff" fillOpacity="0.5" />
           </svg>
         </div>
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,rgba(70,128,95,0.35),transparent_55%)]" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_right,rgba(217,119,6,0.18),transparent_55%)]" />
         <div className="relative">
           <Link to="/" aria-label="RoadWatch HP home">
             <Logo light />
           </Link>
           <div className="mt-16 max-w-md">
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-brand-300">
+            <p className="text-xs font-medium uppercase tracking-[0.14em] text-white/50">
               Road intelligence workspace
             </p>
-            <h2 className="mt-3 text-3xl font-bold leading-tight text-white">
+            <h2 className="mt-3 text-2xl font-semibold leading-tight text-white">
               Smarter Roads.
               <br />
               Safer Journeys.
@@ -81,25 +79,25 @@ export function AuthShell({
             {
               icon: MapPinned,
               title: "Live hazard map",
-              tone: "bg-brand-500/20 text-brand-300",
+              tone: "bg-white/10 text-brand-200",
               text: "Clustered reports on OpenStreetMap.",
             },
             {
               icon: ShieldCheck,
               title: "Verified workflow",
-              tone: "bg-sky-500/20 text-sky-300",
+              tone: "bg-white/10 text-brand-200",
               text: "Reviewer actions with an audit trail.",
             },
             {
               icon: Waypoints,
               title: "Real data only",
-              tone: "bg-amber-500/20 text-amber-300",
+              tone: "bg-white/10 text-brand-200",
               text: "No fabricated statistics or AI output.",
             },
           ].map((item) => (
             <div
               key={item.title}
-              className="flex items-start gap-3 rounded-xl border border-white/10 bg-white/5 p-4"
+              className="flex items-start gap-3 rounded-lg border border-white/10 bg-white/5 p-4"
             >
               <span
                 className={cn(
@@ -137,7 +135,7 @@ export function AuthShell({
                 ← Back to home
               </Link>
             </div>
-            <h1 className="mt-0 text-2xl font-bold tracking-tight text-ink lg:mt-6">
+            <h1 className="mt-0 text-2xl font-semibold tracking-tight text-ink lg:mt-6">
               {title}
             </h1>
             <p className="mt-1.5 text-sm text-muted">{subtitle}</p>

@@ -21,13 +21,13 @@ export function NotFound() {
       </header>
       <main className="flex flex-1 items-center justify-center px-4 py-16">
         <div className="w-full max-w-md text-center">
-          <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-white text-brand-700 shadow-card">
+          <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-xl bg-white text-brand-700 shadow-card">
             <MapPinOff className="h-8 w-8" />
           </div>
-          <p className="mt-6 text-xs font-semibold uppercase tracking-[0.2em] text-muted">
+          <p className="mt-6 text-xs font-medium uppercase tracking-[0.14em] text-muted">
             404 · Off the map
           </p>
-          <h1 className="mt-2 text-3xl font-bold tracking-tight text-ink">
+          <h1 className="mt-2 text-2xl font-semibold tracking-tight text-ink">
             This road does not exist
           </h1>
           <p className="mt-2 text-sm leading-relaxed text-muted">

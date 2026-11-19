@@ -65,7 +65,7 @@ export function Badge({
   return (
     <span
       className={cn(
-        "inline-flex items-center gap-1 rounded-full border px-2.5 py-0.5 text-[11px] font-semibold",
+        "inline-flex items-center gap-1 rounded border px-2 py-0.5 text-[11px] font-medium",
         className
       )}
     >
@@ -95,7 +95,7 @@ const severityStyles: Record<string, string> = {
   low: "border-emerald-200 bg-emerald-50 text-emerald-800",
   medium: "border-amber-200 bg-amber-50 text-amber-800",
   high: "border-red-200 bg-red-50 text-red-700",
-  critical: "border-red-300 bg-red-100 text-red-900",
+  critical: "border-red-300 bg-red-50 text-red-800",
 };
 
 const severityDots: Record<string, string> = {

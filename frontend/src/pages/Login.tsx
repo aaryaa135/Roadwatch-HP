@@ -120,7 +120,7 @@ export function Login() {
         </Button>
       </form>
 
-      <div className="mt-6 rounded-xl border border-line bg-surface p-4">
+      <div className="mt-6 rounded-lg border border-line bg-surface p-4">
         <p className="text-xs font-semibold uppercase tracking-wider text-muted">
           Demonstration accounts
         </p>

@@ -164,12 +164,12 @@ export function HazardMap() {
               className="h-[calc(100vh-23rem)] min-h-[460px] w-full"
             />
             {query.loading && (
-              <div className="pointer-events-none absolute left-1/2 top-4 z-[500] -translate-x-1/2 rounded-full bg-white/95 px-3 py-1.5 text-xs font-medium text-muted shadow">
+              <div className="pointer-events-none absolute left-1/2 top-4 z-[500] -translate-x-1/2 rounded-md bg-white/95 px-3 py-1.5 text-xs font-medium text-muted shadow-sm">
                 Loading map reports…
               </div>
             )}
             {!query.loading && filtered.length === 0 && (
-              <div className="pointer-events-none absolute inset-x-4 bottom-6 z-[500] rounded-lg border border-line bg-white/95 px-4 py-3 text-center text-xs text-muted shadow">
+              <div className="pointer-events-none absolute inset-x-4 bottom-6 z-[500] rounded-md border border-line bg-white/95 px-4 py-3 text-center text-xs text-muted shadow-sm">
                 No reports match the current filters in this viewport. Zoom out
                 or clear filters to see more.
               </div>
@@ -213,7 +213,7 @@ export function HazardMap() {
               title="Reports in view"
               description={selected ? "Other reports in this viewport" : "Select a report to inspect it"}
               action={
-                <span className="rounded-full bg-surface px-2 py-0.5 text-[11px] font-semibold text-muted">
+                <span className="rounded bg-surface px-2 py-0.5 text-[11px] font-medium text-muted">
                   {filtered.length}
                 </span>
               }
@@ -238,7 +238,7 @@ export function HazardMap() {
                       type="button"
                       onClick={() => selectReport(report)}
                       className={`w-full px-4 py-3 text-left transition-colors hover:bg-surface/70 ${
-                        selected?.id === report.id ? "bg-brand-50/70" : ""
+                        selected?.id === report.id ? "bg-surface" : ""
                       }`}
                     >
                       <div className="flex items-start justify-between gap-2">
@@ -264,7 +264,7 @@ export function HazardMap() {
             <div className="border-t border-line px-4 py-2.5">
               <Link
                 to="/app/reports"
-                className="text-xs font-semibold text-brand-700 hover:text-brand-800"
+                className="text-xs font-medium text-brand-700 hover:text-brand-800"
               >
                 Browse all reports
               </Link>

@@ -27,28 +27,28 @@ const steps = [
   {
     icon: Camera,
     title: "Capture",
-    tone: "bg-brand-100 text-brand-700",
+    tone: "bg-brand-50 text-brand-700",
     description:
       "A citizen photographs a road hazard and attaches GPS coordinates from the field.",
   },
   {
     icon: ScanSearch,
     title: "Detect",
-    tone: "bg-sky-100 text-sky-700",
+    tone: "bg-sky-50 text-sky-700",
     description:
       "The AI service analyses the image for the relevant hazard model and returns confidence and detections.",
   },
   {
     icon: ShieldCheck,
     title: "Verify",
-    tone: "bg-amber-100 text-amber-700",
+    tone: "bg-amber-50 text-amber-700",
     description:
       "Authorised reviewers inspect the report, AI output and possible duplicates before verification.",
   },
   {
     icon: Activity,
     title: "Monitor",
-    tone: "bg-rose-100 text-rose-700",
+    tone: "bg-surface text-charcoal-700",
     description:
       "Verified hazards appear on the live GIS map and feed the analytics workspace.",
   },
@@ -58,42 +58,42 @@ const features = [
   {
     icon: MapPinned,
     title: "Interactive GIS map",
-    tone: "bg-brand-100 text-brand-700",
+    tone: "bg-brand-50 text-brand-700",
     description:
       "Explore clustered hazard markers across Himachal Pradesh with category, severity and verification filters.",
   },
   {
     icon: Sparkles,
     title: "AI-assisted detection",
-    tone: "bg-violet-100 text-violet-700",
+    tone: "bg-brand-50 text-brand-700",
     description:
       "Model confidence is shown separately from severity. When model weights are unavailable, the platform says so instead of inventing a result.",
   },
   {
     icon: TriangleAlert,
     title: "Severity assessment",
-    tone: "bg-amber-100 text-amber-700",
+    tone: "bg-amber-50 text-amber-700",
     description:
       "Low, medium, high and critical severity grades are tracked independently from AI confidence and verification.",
   },
   {
     icon: Layers,
     title: "Duplicate awareness",
-    tone: "bg-sky-100 text-sky-700",
+    tone: "bg-sky-50 text-sky-700",
     description:
       "Nearby reports of the same category are surfaced for reviewers before a decision is made.",
   },
   {
     icon: ShieldCheck,
     title: "Verification workflow",
-    tone: "bg-emerald-100 text-emerald-700",
+    tone: "bg-brand-50 text-brand-700",
     description:
       "A clear audit trail records verification, rejection and resolution actions with reviewer remarks.",
   },
   {
     icon: Database,
     title: "Real analytics",
-    tone: "bg-rose-100 text-rose-700",
+    tone: "bg-surface text-charcoal-700",
     description:
       "Charts are generated from stored reports. No fabricated statistics and no synthetic production data.",
   },
@@ -124,17 +124,15 @@ export function Landing() {
             />
           )}
           <div className="absolute inset-0 bg-gradient-to-r from-charcoal-950/90 via-charcoal-950/70 to-charcoal-900/30" />
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,rgba(53,106,77,0.35),transparent_55%)]" />
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(217,119,6,0.22),transparent_50%)]" />
         </div>
 
         <div className="relative mx-auto grid max-w-7xl gap-10 px-4 pb-20 pt-16 sm:px-6 sm:pb-24 sm:pt-20 lg:grid-cols-[1.15fr_0.85fr] lg:items-end lg:px-8 lg:pb-28 lg:pt-28">
           <div className="max-w-2xl">
-            <div className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.16em] text-white/70 backdrop-blur">
+            <div className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3 py-1.5 text-[11px] font-medium uppercase tracking-[0.14em] text-white/65">
               <Waypoints className="h-3.5 w-3.5 text-brand-300" />
               Road intelligence for Himachal Pradesh
             </div>
-            <h1 className="mt-5 text-4xl font-bold leading-[1.05] tracking-tight text-white sm:text-5xl lg:text-6xl">
+            <h1 className="mt-5 text-4xl font-semibold leading-[1.08] tracking-tight text-white sm:text-5xl">
               Smarter Roads.
               <br />
               <span className="text-brand-300">Safer Journeys.</span>
@@ -155,7 +153,7 @@ export function Landing() {
                 <Button
                   size="lg"
                   variant="outline"
-                  className="border-white/20 bg-white/5 text-white hover:bg-white/10 hover:text-white"
+                  className="border-white/25 bg-transparent text-white hover:bg-white/10 hover:text-white"
                   icon={<Camera className="h-4 w-4" />}
                 >
                   Report a hazard
@@ -169,19 +167,19 @@ export function Landing() {
 
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-2">
             {[
-              { value: "10", label: "Hazard categories", accent: "border-l-brand-400" },
-              { value: "4", label: "AI model families", accent: "border-l-sky-400" },
-              { value: "GIS", label: "Live map layer", accent: "border-l-amber-400" },
-              { value: "Audit", label: "Verification trail", accent: "border-l-rose-400" },
+              { value: "10", label: "Hazard categories", accent: "border-l-brand-400/70" },
+              { value: "4", label: "AI model families", accent: "border-l-brand-400/70" },
+              { value: "GIS", label: "Live map layer", accent: "border-l-brand-400/70" },
+              { value: "Audit", label: "Verification trail", accent: "border-l-brand-400/70" },
             ].map((item) => (
               <div
                 key={item.label}
                 className={cn(
-                  "rounded-xl border border-l-2 border-white/10 bg-white/5 p-4 backdrop-blur-sm",
+                  "rounded-lg border border-l-2 border-white/10 bg-white/5 p-4",
                   item.accent
                 )}
               >
-                <p className="text-2xl font-bold text-white">{item.value}</p>
+                <p className="text-2xl font-semibold text-white">{item.value}</p>
                 <p className="mt-1 text-[11px] font-medium uppercase tracking-wider text-white/45">
                   {item.label}
                 </p>
@@ -210,10 +208,10 @@ export function Landing() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr]">
             <div>
-              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-brand-600">
+              <p className="text-xs font-medium uppercase tracking-[0.14em] text-muted">
                 How it works
               </p>
-              <h2 className="mt-3 text-3xl font-bold tracking-tight text-ink sm:text-4xl">
+              <h2 className="mt-3 text-2xl font-semibold tracking-tight text-ink sm:text-3xl">
                 From a roadside photograph to a verified hazard record.
               </h2>
               <p className="mt-4 max-w-md text-sm leading-relaxed text-muted">
@@ -234,18 +232,18 @@ export function Landing() {
               {steps.map((step, index) => (
                 <div
                   key={step.title}
-                  className="rounded-xl border border-line bg-white p-5 shadow-card"
+                  className="rounded-lg border border-line bg-white p-5"
                 >
                   <div className="flex items-center justify-between">
                     <div
                       className={cn(
-                        "flex h-10 w-10 items-center justify-center rounded-lg",
+                        "flex h-10 w-10 items-center justify-center rounded-md",
                         step.tone
                       )}
                     >
                       <step.icon className="h-5 w-5" />
                     </div>
-                    <span className="text-xs font-semibold text-muted">
+                    <span className="text-xs font-medium text-muted">
                       0{index + 1}
                     </span>
                   </div>
@@ -265,10 +263,10 @@ export function Landing() {
       <section id="features" className="scroll-mt-20 bg-white py-16 sm:py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="max-w-2xl">
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-brand-600">
+            <p className="text-xs font-medium uppercase tracking-[0.14em] text-muted">
               Project features
             </p>
-            <h2 className="mt-3 text-3xl font-bold tracking-tight text-ink sm:text-4xl">
+            <h2 className="mt-3 text-2xl font-semibold tracking-tight text-ink sm:text-3xl">
               A monitoring workspace, not a static report form.
             </h2>
             <p className="mt-4 text-sm leading-relaxed text-muted">
@@ -281,11 +279,11 @@ export function Landing() {
             {features.map((feature) => (
               <div
                 key={feature.title}
-                className="group rounded-xl border border-line bg-white p-5 transition duration-200 hover:-translate-y-0.5 hover:border-brand-200 hover:bg-brand-50/30 hover:shadow-card"
+                className="group rounded-lg border border-line bg-white p-5 transition-colors hover:border-brand-300"
               >
                 <div
                   className={cn(
-                    "flex h-10 w-10 items-center justify-center rounded-lg transition-transform group-hover:scale-105",
+                    "flex h-10 w-10 items-center justify-center rounded-md",
                     feature.tone
                   )}
                 >
@@ -307,16 +305,16 @@ export function Landing() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
             <div className="max-w-2xl">
-              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-brand-600">
+              <p className="text-xs font-medium uppercase tracking-[0.14em] text-muted">
                 Supported hazard categories
               </p>
-              <h2 className="mt-3 text-3xl font-bold tracking-tight text-ink sm:text-4xl">
+              <h2 className="mt-3 text-2xl font-semibold tracking-tight text-ink sm:text-3xl">
                 Ten categories built for hill roads.
               </h2>
             </div>
             <Link
               to="/app/map"
-              className="inline-flex items-center gap-1.5 text-sm font-semibold text-brand-700 hover:text-brand-800"
+              className="inline-flex items-center gap-1.5 text-sm font-medium text-brand-700 hover:text-brand-800"
             >
               View on map <ArrowRight className="h-4 w-4" />
             </Link>
@@ -327,7 +325,7 @@ export function Landing() {
                 key={hazard.code}
                 className="rw-card rw-card-hover p-4"
               >
-                <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-gradient-to-br from-brand-50 to-brand-100 text-brand-700">
+                <div className="flex h-9 w-9 items-center justify-center rounded-md bg-brand-50 text-brand-700">
                   <HazardIcon type={hazard.code} className="h-5 w-5" />
                 </div>
                 <h3 className="mt-3 text-sm font-semibold text-ink">
@@ -346,10 +344,10 @@ export function Landing() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr]">
             <div>
-              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-brand-600">
+              <p className="text-xs font-medium uppercase tracking-[0.14em] text-muted">
                 Technology overview
               </p>
-              <h2 className="mt-3 text-3xl font-bold tracking-tight text-ink sm:text-4xl">
+              <h2 className="mt-3 text-2xl font-semibold tracking-tight text-ink sm:text-3xl">
                 A geospatial stack designed for real operations.
               </h2>
               <p className="mt-4 text-sm leading-relaxed text-muted">
@@ -358,7 +356,7 @@ export function Landing() {
                 performed server-side, and map coordinates come from stored
                 PostGIS points rather than fabricated client-side data.
               </p>
-              <div className="mt-6 rounded-xl border border-line bg-surface p-4">
+              <div className="mt-6 rounded-lg border border-line bg-surface p-4">
                 <div className="flex items-start gap-3">
                   <Cpu className="mt-0.5 h-5 w-5 shrink-0 text-brand-700" />
                   <p className="text-xs leading-relaxed text-muted">
@@ -373,7 +371,7 @@ export function Landing() {
               {technology.map((item) => (
                 <div
                   key={item.label}
-                  className="rounded-xl border border-l-2 border-line border-l-brand-300 bg-white p-4 transition hover:border-brand-300 hover:shadow-card"
+                  className="rounded-lg border border-line bg-white p-4 transition-colors hover:border-brand-300"
                 >
                   <p className="text-sm font-semibold text-ink">{item.label}</p>
                   <p className="mt-1 text-xs text-muted">{item.detail}</p>
@@ -388,10 +386,10 @@ export function Landing() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr]">
             <div>
-              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-brand-600">
+              <p className="text-xs font-medium uppercase tracking-[0.14em] text-muted">
                 About the project
               </p>
-              <h2 className="mt-3 text-3xl font-bold tracking-tight text-ink sm:text-4xl">
+              <h2 className="mt-3 text-2xl font-semibold tracking-tight text-ink sm:text-3xl">
                 Road safety intelligence for a Himalayan state.
               </h2>
               <p className="mt-4 text-sm leading-relaxed text-muted">
@@ -424,7 +422,7 @@ export function Landing() {
                   text: "Map, dashboard and analytics from the same report source of truth.",
                 },
               ].map((item) => (
-                <div key={item.title} className="rounded-xl border border-line bg-white p-5">
+                <div key={item.title} className="rounded-lg border border-line bg-white p-5">
                   <h3 className="text-sm font-semibold text-ink">{item.title}</h3>
                   <p className="mt-1.5 text-sm text-muted">{item.text}</p>
                 </div>
@@ -434,10 +432,10 @@ export function Landing() {
         </div>
       </section>
 
-      <section className="relative overflow-hidden bg-gradient-to-r from-charcoal-950 via-charcoal-900 to-brand-900 py-14">
+      <section className="relative overflow-hidden bg-charcoal-900 py-14">
         <div className="mx-auto flex max-w-7xl flex-col items-start justify-between gap-6 px-4 sm:px-6 lg:flex-row lg:items-center lg:px-8">
           <div>
-            <h2 className="text-2xl font-bold tracking-tight text-white sm:text-3xl">
+            <h2 className="text-2xl font-semibold tracking-tight text-white sm:text-3xl">
               Help keep Himachal Pradesh moving safely.
             </h2>
             <p className="mt-2 text-sm text-white/55">
@@ -452,7 +450,7 @@ export function Landing() {
               <Button
                 size="lg"
                 variant="outline"
-                className="border-white/20 bg-white/5 text-white hover:bg-white/10 hover:text-white"
+                className="border-white/25 bg-transparent text-white hover:bg-white/10 hover:text-white"
               >
                 Explore map
               </Button>

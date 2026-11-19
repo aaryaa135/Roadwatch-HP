@@ -53,7 +53,7 @@ export function EmptyState({
 }) {
   return (
     <div className="flex flex-col items-center justify-center px-6 py-14 text-center">
-      <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-surface text-muted">
+      <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-lg bg-surface text-muted">
         {icon ?? <Inbox className="h-6 w-6" aria-hidden="true" />}
       </div>
       <h3 className="text-sm font-semibold text-ink">{title}</h3>
@@ -77,7 +77,7 @@ export function ErrorState({
   const retry = onRetry;
   return (
     <div className="flex flex-col items-center justify-center px-6 py-14 text-center">
-      <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-red-50 text-severity-high">
+      <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-lg bg-red-50 text-severity-high">
         <AlertCircle className="h-6 w-6" aria-hidden="true" />
       </div>
       <h3 className="text-sm font-semibold text-ink">{title}</h3>
@@ -103,7 +103,7 @@ export function InlineError({ children }: { children: ReactNode }) {
   return (
     <div
       role="alert"
-      className="flex items-start gap-2 rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-800"
+      className="flex items-start gap-2 rounded-md border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-800"
     >
       <AlertCircle className="mt-0.5 h-4 w-4 shrink-0" aria-hidden="true" />
       <div>{children}</div>

@@ -205,7 +205,7 @@ export function Verification() {
             <div className="flex items-center justify-between gap-3">
               <div>
                 <p className="text-[11px] font-medium text-muted">{item.label}</p>
-                <p className="mt-1 text-2xl font-bold text-ink">{item.value}</p>
+                <p className="mt-1 text-2xl font-semibold text-ink">{item.value}</p>
               </div>
               <span
                 className={`flex h-9 w-9 items-center justify-center rounded-lg ${
@@ -243,7 +243,7 @@ export function Verification() {
               >
                 <item.icon className="h-3.5 w-3.5" />
                 {item.label}
-                <span className="rounded-full bg-surface px-1.5 py-0.5 text-[10px] text-muted">
+                <span className="rounded bg-surface px-1.5 py-0.5 text-[10px] text-muted">
                   {tabCount(item.key)}
                 </span>
               </button>
@@ -362,7 +362,7 @@ export function Verification() {
                     <div className="mt-2 flex flex-wrap items-center gap-1.5">
                       <HazardBadge type={report.hazard_type} />
                       <SeverityBadge severity={report.severity} />
-                      <span className="rounded-full border border-line bg-white px-2 py-0.5 text-[11px] font-medium text-muted">
+                      <span className="rounded border border-line bg-white px-2 py-0.5 text-[11px] font-medium text-muted">
                         AI {formatConfidence(report.ai_confidence)}
                       </span>
                     </div>
@@ -401,7 +401,7 @@ export function Verification() {
                       </Button>
                       <Link
                         to={`/app/reports/${report.id}`}
-                        className="inline-flex h-8 items-center rounded-md px-2 text-xs font-semibold text-brand-700 hover:bg-brand-50"
+                        className="inline-flex h-8 items-center rounded-md px-2 text-xs font-medium text-brand-700 hover:bg-surface"
                       >
                         Open report
                       </Link>
